@@ -1,0 +1,44 @@
+\documentclass{article}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+
+\title{\href{https://math.umn.edu/sites/math.umn.edu/files/exams/complexf18.pdf}{Fall 2018 Complex Analysis Preliminary Exam}}
+\author{University of Minnesota}
+\date{}
+\begin{document}
+\maketitle
+
+Where possible, computations have been also done using SageMath code available on GitHub at \\ github.com/tekaysquared/prelims (feel free to make pull requests!)
+
+\begin{enumerate}
+
+
+	\setcounter{enumi}{1}
+	
+	\item Write the Laurent expansion of $f(z) = \frac{1}{z^4-1}$ centered at $0$ and convergent in $|z|>1$.
+	
+	\begin{proof}
+		Factor out $z^{-4}$ to see that 
+		\begin{align*}
+			f(z) &= \frac{1}{z^4 (1 - {1}/{z^4})}\\
+			&= \frac{1}{z^4} \sum_{n=0}^\infty \frac{1}{z^{4n}} \\
+%			&= \frac{1}{z^4} \left ( \right )
+		\end{align*}
+		which converges for $|1/z^4| <1$ which is to say for $|z|>1$.
+		So then $f$ has a Laurent expansion
+		\[f(z) = \sum_{n = - \infty}^{\infty} a_n z^{n} \]
+		where 
+		\[ a_n = \begin{cases}
+						  1 & n = -4k \text{ for nonzero positive integers }k\\
+						  0 & \text{otherwise}
+		\end{cases}\]
+	\end{proof} 
+	
+\end{enumerate}
+
+
+\end{document}

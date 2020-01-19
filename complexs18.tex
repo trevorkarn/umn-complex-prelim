@@ -1,0 +1,66 @@
+\documentclass{article}
+
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+
+\title{\href{https://math.umn.edu/sites/math.umn.edu/files/exams/complexs18.pdf}{Spring 2018 Complex Analysis Preliminary Exam}}
+\author{University of Minnesota}
+\date{}
+\begin{document}
+\maketitle
+
+Where possible, computations have been also done using SageMath code available on GitHub at \\ github.com/tekaysquared/prelims (feel free to make pull requests!)
+
+\begin{enumerate}
+	
+	\item Write the first three terms of the Laurent expansion of $\displaystyle f(z) = \frac{1}{z(z-1)(z-2)}$ centered at $0$ and convergent in $|1| < z < |2|$
+	
+	\begin{proof}
+		The core idea of the computation is to split the function into a product of power series.
+		First, we observe that 
+		\[ \frac{1}{z-1} = \frac{1}{z(1-1/z)}\] 
+		and see the geometric series 
+		\[ \frac{1}{1-1/z} = \sum_{n=0}^\infty \left( \frac{1}{z} \right)^n,\]
+		which converges for $|1/z| < 1$, or equivalently $|z|>1$.
+		Similarly we see that 
+		\[ \frac{1}{z-2} = \frac{-1}{2(1-z/2)} = -\frac{1}{2} \sum_{n=0}^\infty \left ( \frac{z}{2} \right )^n \]
+		for $|z/2| < 1$, which is to say for $|z|< 2$.
+		Thus we have
+		\begin{align*}
+			f(z) &= \frac{1}{z} \left ( \frac{1}{z} \sum_{n=0}^\infty \left ( \frac{1}{z} \right )^n \right ) \left ( \frac{-1}{2} \sum_{n=0}^\infty \left( \frac{z}{2} \right)^n \right )\\
+			&= \frac{-1}{2z} \left (\frac{1}{z} + \frac{1}{z^2} + \frac{1}{z^3} + \cdots  \right) \left ( 1 + \frac{z}{2}+\frac{z^2}{4}+\frac{z^3}{8}+\cdots \right ).
+		\end{align*}
+		Note that the above product converges when each term converges, which is to say on the annulus $1 < |z| < 2$.
+	
+		Now note that the coefficient of 	$z^{-1}$ of the Laurent expansion is 
+		\begin{align*}
+			- \frac{1}{2} \left ( \frac{1}{2} + \frac{1}{4} +\frac{1}{8} + \cdots \right ) &=  \frac{-1}{2} \left [ \sum_{n \geq 0} (1/2)^n - 1\right ] \\
+			&= -\frac{1}{2} \left (\frac{1}{1-1/2} - 1 \right)\\
+			&= -\frac{1}{2}.
+		\end{align*}
+		
+		The coefficient of $z^{0}$ is 
+		\begin{align*}
+			-\frac{1}{2} \left ( \frac{1}{4} + \frac{1}{8} + \frac{1}{16} +\cdots \right ) 
+			&= -\frac{1}{2} \left(2 - 1 - \frac{1}{2}\right) = -1/4 \\
+		\end{align*} 
+		
+		The coefficient of $z^1$ is
+		\begin{align*}
+			-\frac{1}{2} \left ( \frac{1}{8} + \frac{1}{16} + \frac{1}{32} + \cdots \right ) &= - \frac{1}{2} \left ( 2 - 1 - \frac{1}{2} - \frac{1}{4} \right )\\
+			&= - \frac{1}{8}.
+		\end{align*}
+		 
+		Therefore \[ f(z) = \cdots - \frac{1}{2z} - \frac{1}{4} - \frac{z}{8} + \cdots \]
+	\end{proof}
+	
+Note that there is also a Laurent series which converges for the annulus $0 < |z| < 1$. This can be found by using the geometric series expansion \[\frac{1}{z-1} = \frac{-1}{1-z} = - \sum_{n=0}^\infty z^n\] which of course converges for $|z|< 1$, and using the same expansion of $\frac{1}{z-2}$ as above. The expansion which converges on the punctured unit disk is the one provided by SageMath. For another example of this, see \href{https://math.stackexchange.com/questions/2553132/laurent-series-for-different-domains}{this math StackExchange post}.
+
+	
+
+\end{enumerate}
+
+
+\end{document}

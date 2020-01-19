@@ -1,0 +1,32 @@
+\documentclass{article}
+
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+
+\title{\href{https://math.umn.edu/sites/math.umn.edu/files/exams/complexs19.pdf}{Spring 2019 Complex Analysis Preliminary Exam}}
+\author{University of Minnesota}
+\date{}
+\begin{document}
+\maketitle
+
+Where possible, computations have been also done using SageMath code available on GitHub at github.com/tekaysquared/prelims (feel free to make pull requests!)
+
+\begin{enumerate}
+
+
+	\setcounter{enumi}{1}
+	
+	\item Write the first three terms of the Laurent expansion of $\displaystyle f(z) = \frac{1}{z^5-1}$ centered at $0$ and convergent in $|z|<1$.
+	
+	\begin{proof}
+		Observe that \[\frac{1}{z^5-1} = \frac{-1}{1-z^5} = -\sum_{n=0}^\infty z^{5n}\]
+		which converges for $|z^5|<1$ which is $|z|^5<1$ or $|z|<1$. 
+		Thus, the first three nonzero terms of the expansion of $f$ are 
+		$a_0 = -1$, $a_5=-1$, and $a_{10} = -1$.
+	\end{proof}
+\end{enumerate}
+
+
+\end{document}
