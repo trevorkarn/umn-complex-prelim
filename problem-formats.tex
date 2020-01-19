@@ -1,0 +1,42 @@
+\documentclass[10pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{sectsty}
+
+\sectionfont{\large}
+
+\begin{document}
+The goal of this document is to give a general outline of how to solve problems for the Complex Analysis prelim.
+
+\section{Laurent Series}
+See the study log for specific old prelim questions.
+
+
+Suppose we are given a function and are asked to find a Laurent series expansion (or some terms of it) centered at $0$ and convergent on some region. 
+\begin{enumerate}
+	\item Factor the function into pieces which can be easily rewritten as an infinite series, for example a geometric series \[\frac{1}{1- a} = \sum_{n \geq 0} a^n,\] or \[e^z = \sum_{n\geq 0} \frac{z^n}{n!}.\] 
+	Historically, $\sin$ and $\cos$ have not been included, but I'll record them here just in case.
+	If you are given something like $\frac{1}{z-1}$ there are two things you could do. More on this to follow.
+	\item Rewrite the function as a product of infinite series
+	\item Check the regions on which the series converges.\footnote{Checking convergence is important because in the past different regions have been requested. For example Spring 2019 \#2 and Fall 2018 \#2 gave functions of the form $\frac{1}{z^n-1}$ asked for convergence on $|z|<1$ and $|z|>1$ respectively. The different regions of convergence changes the answer significantly. \href{https://math.stackexchange.com/questions/2553132/laurent-series-for-different-domains}{For more see StackExchange.}} For example if $f(z) = \frac{1}{z-1}$ we could rewrite as either $f = \frac{-1}{1-z}$ or $f = \frac{1}{z(1-1/z)}$. 
+	The first way converges for $|z|<1$. The second way converges for $|1/z|<1$ or $|z|>1$. Also remember that region of convergence of a product of series is the intersection of their individual regions of convergence, so if $\sum_{n\geq 0} a_n z^n$ converges for $|z|>1$ and $\sum_{n \geq 0} b_n z^n$ converges for $|z|<2$, then the product
+	\[ \left ( \sum_{n\geq 0} a_n z^n\right) \left ( \sum_{n \geq 0} b_n z^n\right)\]
+	converges for $1 < |z| < 2$.
+	
+	
+	
+	\item If the region is the one which was requested, write the series. 
+	If you are only asked for a few terms, it can be helpful to write out the terms as a sum, for example
+	\[\frac{1}{z} (a_0 + a_1 z + a_2 z^2 + \cdots ) (b_0 + b_1 z + b_2 z^2 + \cdots)\]
+	or 
+	\[(a_0 + a_1 z + a_2 z^2 + \cdots ) (b_0 + \frac{b_1 }{z} + \frac{b_2}{z^2} + \cdots).\]
+	
+	In the first case, recall multiplication of power series given by \[\sum a_n z^n \sum b_n z^n = \sum (\sum_{k=0}^n a_n b_{k-n}) z^n.\] Also, don't forget to include the factor of $\frac{1}{z}$ out front. 
+	
+	For the second case, each coefficient will be itself an infinite sum. For this example, the coefficient of $\frac{1}{z}$ is $\sum a_n b_{n+1}$, the constant coefficient is $\sum a_n b_n$, and the coefficient of $z$ will be $\sum a_{n+1}b_n$. Historically, the coefficients have been a geometric series, and so can be actually computed using $\sum r^n = \frac{1}{1-r}$. An older example also had a copy of $e =  \sum \frac{1}{n!}$ hidden in there.
+\end{enumerate}
+
+
+
+\end{document}
