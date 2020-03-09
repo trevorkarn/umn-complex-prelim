@@ -2,6 +2,7 @@
 
 \usepackage{amsthm}
 \usepackage{amsmath}
+\usepackage{amsfonts}
 \usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
 
@@ -61,7 +62,20 @@ Where possible, computations have been also done using SageMath code available o
 	
 Note that there is also a Laurent series which converges for the annulus $0 < |z| < 1$. This can be found by using the geometric series expansion \[\frac{1}{z-1} = \frac{-1}{1-z} = - \sum_{n=0}^\infty z^n\] which of course converges for $|z|< 1$, and using the same expansion of $\frac{1}{z-2}$ as above. This is the one provided by SageMath. For another example of this, see \href{https://math.stackexchange.com/questions/2553132/laurent-series-for-different-domains}{this math StackExchange post}.
 
+\setcounter{enumi}{4}
+	\item Determine the radius of convergence of the power series for $z \log z$ at $z_0 = -3 + 4i$.
 	
+	\begin{proof}
+		We will look for the largest $R$ for which there is a disk $D_R$ of radius $R$ centered at $z_0$ on which there is a holomorphic function agreeing with $z \log z$.
+		%
+		The product of holomorphic functions is holomorphic, so because $g(z) = z$ is entire, the radius of convergence of $z \log z$ is limited by $f(z) = \log z$. 
+		
+		To find the radius of convergence of $f$ at $z_0$, observe that there is no number $w \in \mathbb{C}$ such that $e^w = 0$, and so the $R$ is bounded above by $|-3 + 4i - 0| = 5$.		
+		
+		On the other hand recall that it is a theorem\footnote{Theorem 6.1 in Chapter 3 of Stein and Shakarchi's \textit{Complex Analysis}} that if $D$ is a simply connected region which does not contain $0$, then there is a branch of the logarithm (call it $\log_D$) which is holomorphic on $D$. Consider the (open) disk $D_5$ of radius 5 centered at $z_0$. Clearly this does not contain $0$, and so there is a holomorphic $\log_{D_5}$. Thus, we see $R \geq 5$. 
+		
+		Since $R \leq 5$ and $R \geq 5$, we have $R = 5$.
+	\end{proof}
 
 \end{enumerate}
 

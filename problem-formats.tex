@@ -1,5 +1,7 @@
 \documentclass[10pt]{article}
 
+\usepackage{amsfonts}
+\usepackage{enumitem}
 \usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
 \usepackage{sectsty}
@@ -7,11 +9,9 @@
 \sectionfont{\large}
 
 \begin{document}
-The goal of this document is to give a general outline of how to solve problems for the Complex Analysis prelim.
+The goal of this document is to give a general outline of how to solve problems for the Complex Analysis prelim. See the study log for specific old prelim questions relevant to each section.
 
 \section{Laurent Series}
-See the study log for specific old prelim questions.
-
 
 Suppose we are given a function and are asked to find a Laurent series expansion (or some terms of it) centered at $0$ and convergent on some region. 
 \begin{enumerate}
@@ -37,6 +37,17 @@ Suppose we are given a function and are asked to find a Laurent series expansion
 	For the second case, each coefficient will be itself an infinite sum. For this example, the coefficient of $\frac{1}{z}$ is $\sum a_n b_{n+1}$, the constant coefficient is $\sum a_n b_n$, and the coefficient of $z$ will be $\sum a_{n+1}b_n$. Historically, the coefficients have been a geometric series, and so can be actually computed using $\sum r^n = \frac{1}{1-r}$. An older example also had a copy of $e =  \sum \frac{1}{n!}$ hidden in there.
 \end{enumerate}
 
+\section{Power series}
+Suppose we are given a function $f(z)$ and asked to find the radius of convergence for its power series centered at some given point $z_0$. Some good facts to know are:
+\begin{enumerate}[label = \alph*)]
+\item The radius of convergence is the radius of the largest disk centered at $z_0$ on which there is a holomorphic function agreeing with the given function.
+\item If $\Omega \subset \mathbb{C}$ such that $\Omega$ is simply connected (homotopic to a point) and $0 \not \in \Omega$ then there is a branch of the logarithm (call it $\log_\Omega$) which is holomorphic on $\Omega$.\footnote{Theorem 6.1.i in Chapter 3 of Stein and Shakarchi's \textit{Complex Analysis}. Note that the theorem also includes the assumption that $1 \in \Omega$, but this assumption is used to prove parts ii, iii of the theorem, not part i.}
+\item \textbf{Riemann's theorem on removable discontinuities} states (among other things) that if $D \subseteq \mathbb{C}$ is open and $a \in D$, then if $f$ is a function which is holomorphic on $D-\{a\}$, then $f$ is continuously extendable if and only if it is holomorphically extendable. There are also other conclusions of the theorem, but the two above conclusions are the ones which are relevant to this type of problem.
+\end{enumerate}
 
+The general idea is to first bound the size of the disk from above, then from below. One way to bound from below is to explicitly construct a holomorphic function on a disk of the desired size which agrees with given function, by using (b) and (c) above.
+One way to bound from above is to find a pole or essential singularity, and compute the distance between a pole or essential singularity and the given point $z_0$.
+
+\section{Complex $n$th roots}
 
 \end{document}

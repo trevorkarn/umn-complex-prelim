@@ -38,6 +38,21 @@ Where possible, computations have been also done using SageMath code available o
 		\end{cases}\]
 	\end{proof} 
 	
+	\setcounter{enumi}{5}
+	\item Determine the radius of convergence of the power series for $\log z$ at $z_0 = -4 + 3i$.
+	
+	\begin{proof}
+		Let $R$ denote the radius of convergence of the power series of $\log z$ centered at $z_0$.
+		Now, note that there is no logarithm which takes a value at $0$, since $e^w = 0$ is never true for $w \in \mathbb{C}$.
+		Thus, the power series expansion can converge for a disk of radius at most $|-4+3i - 0| = 5$, and so 
+		\[ R \leq 5.\]
+		
+		On the other hand, it is a theorem that if $\Omega$ is a simply connected subset of 
+		$\mathbb{C}$ which does not contain $0$ then there is a branch of the logarithm which is holomorphic on $\Omega$. Observe that the open disk $D_{5}(-4+3i) := \{ z \in \mathbb{C} : |-4+3i - z | < 5\}$ is simply connected and does not contain zero. Thus, there is a branch of the logarithm (call it $\log_{D_5}$) which is holomorphic on $D_5$. Since we have constructed a disk of radius 5 on which there is a holomorphic logarithm, we see that 
+		\[ R \geq 5.\]
+		Since we have bounded $R$ both above and below by 5, we see that $R=5$.		
+	\end{proof}
+	
 \end{enumerate}
 
 

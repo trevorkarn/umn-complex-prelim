@@ -58,7 +58,28 @@ Where possible, computations have been also done using SageMath code available o
 	
 Note that there is also a Laurent series which converges for the annulus $0 < |z| < 1$. This can be found by using the geometric series expansion \[\frac{1}{z-1} = \frac{-1}{1-z} = - \sum_{n=0}^\infty z^n\] which of course converges for $|z|< 1$, and using the same expansion of $\frac{1}{z-2}$ as above. The expansion which converges on the punctured unit disk is the one provided by SageMath. For another example of this, see \href{https://math.stackexchange.com/questions/2553132/laurent-series-for-different-domains}{this math StackExchange post}.
 
+\setcounter{enumi}{3}
+
+\item Determine the radius of convergence of the power series for $\frac{z}{1-e^z}$ at $z=0$.
+
+\begin{proof}
+	Let $R$ denote the radius of convergence of $f(z):= \frac{z}{1-e^z}$ at $z=0$.
 	
+	$R$ is the largest value such that there is a holomorphic function on $D_R = \{ z : |z| < R\}$ which agrees with of $f$ on $D_R \backslash \{0\}$
+	%
+	Observe that by L'H\^{o}pitals rule
+	\[\lim_{z \rightarrow 0} \frac{z}{1-e^z} \stackrel{L'H}{=} \lim_{z \rightarrow 0} \frac{1}{-e^z} = -1\]
+	and so $f$ is continuously extendable at $z=0$. 
+	
+	Further observe that $f(z)$ is holomorphic in the punctured open disk $D = \{ z : 0< |z| < 2\pi\}$. 
+	
+	Since we can extend $f$ to be continuous at $z=0$ by taking $f(0):=-1$, Riemann's theorem on removable singularities tells us that in fact this extension is holomorphic on $D \cup \{0\}$. Thus, since the radius of $D\cup\{0\}$ is $2\pi$, then 
+	\begin{equation}\label{4.i}R \geq 2\pi .\end{equation}
+	
+	On the other hand, $\lim_{z \rightarrow 2\pi i} f(z) = \infty$ and so there is no \textit{holomorphic} function which agrees with $f(z)$ at $2\pi i$. Thus, \begin{equation} \label{4.ii} R\leq 2\pi. \end{equation} 
+	
+	Combining (\ref{4.i}) and (\ref{4.ii}) we see that $R = 2\pi$.
+\end{proof}	
 
 \end{enumerate}
 
