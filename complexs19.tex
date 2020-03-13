@@ -12,23 +12,45 @@
 \begin{document}
 \maketitle
 
-Where possible, computations have been also done using SageMath code available on GitHub at github.com/tekaysquared/prelims (feel free to make pull requests!)
 
 \begin{enumerate}
 	\item Give a conformal mapping from the (open) upper half plane to the slit disk \[ D = \{ z \in \mathbb{C} : |z| < 1, z \not \in [0,1] \}\]
 	
+	% See PG notes 3.0.3. We are looking for the inverse of the Cayley map.
+	% The Cayley transformation according to Wikipedia is the inverse of the Cayley map according to PG
+	% See also Mobius transformation which PG calls a fractional linear transform.
 	\begin{proof}
-		Consider the map $z \mapsto \frac{1}{(z+1)^2}$.
-		It is a theorem that a map is conformal if and only if it is holomorphic on the entire domain (in this case the open upper half plane) and nonzero on the entire domain.
-		We see that the provided map is holomorphic except at $z=-1$, which is not in the open upper half plane. 
-		Moreover, we can explicitly compute the derivative to be $-2(z+1)^{-3}$ which is nonzero wherever it is defined. 
-		Thus, the map is conformal.
+		Consider the map $f(z) = \frac{z-i}{z+1}: \mathbb{C} \rightarrow \mathbb{C}$. Note that this is a fractional linear transformation.
 		
-		We check that it is onto the slit disk $D$. First, $z+1$ shifts the half-plane up one unit so that every point has modulus at least one. 
-		Then this is composed with the map $z \mapsto z^2$, which wraps the shifted plane around to consist of all points which do not on the positive real line and which have modulus at least one. 
-		Finally, inverting the map puts those on the outside of the circle onto the inside of the circle, i.e. $D$.
+		Let $H$ be the open upper half plane.
+		We first want to show that $f(H) = D$.
+		
+		First, when we restrict $f$ to the real line, we see $\lim_{x \rightarrow \pm \infty} f(x) = 1$. We also see that 
+		\begin{align*}
+			f(1) &= \frac{1-i}{1+i}\\
+				&= \frac{(1-i)^2}{ | 1+i|^2}\\
+				&= \frac{1-2i-1}{ (\sqrt{2})^2}\\
+				&= -2i/2 \\
+				&= -i
+		\end{align*}
+		and
+		\begin{align*}
+			f(-1) &= \frac{-1-i}{-1+i}\\
+				&= \frac{(-1-i)^2}{|-1+i|^2}\\
+				&= \frac{1 + 2i - 1}{ (\sqrt{2})^2 }\\
+				&= +i
+		\end{align*}
+		finally
+		\[f(+i) = \frac{i - i }{i+i} = 0.\]
+		Thus, because fractional linear transformations preserve circles-and-lines, and $+i \in H$ gets mapped to the interior of $D$, then $f(H) = D$.
+
+		Now we show that $f(z)$ is conformal on the open upper half plane. $f$ is conformal where its derivative is nonzero, and so we compute
+		$f^\prime = \frac{(z+1)- (z-i)}{(z+1)^2} = \frac{1-i}{(z+1)^2}$, which is defined except at $z=-1$ (which is not in the open upper half plane so we need not worry) and is nonzero wherever it is defined.
+		Thus, $f$ is a conformal mapping from $H$ to $D$.
+		 
 	\end{proof}
-	\setcounter{enumi}{1}
+	
+	\newpage
 	
 	\item Write the first three terms of the Laurent expansion of $\displaystyle f(z) = \frac{1}{z^5-1}$ centered at $0$ and convergent in $|z|<1$.
 	
@@ -60,37 +82,37 @@ Where possible, computations have been also done using SageMath code available o
 	
 	\item Define $f(z)$ near $0$ by $f(z)^2 = \frac{\sin z}{z}$. What is the radius of convergence of the power series of $f$ at $0$.
 	
-	\begin{proof}
-		Since $f(z)^2 = \frac{\sin z}{z}$, then $f(z) = \frac{(\sin z)^{1/2}}{z^{1/2}}$. 
-		Recall that we define exponentiation in $\mathbb{C}$ to be $z^\alpha = e^{\alpha \log z}$, and so we have that 
-		\[ f(z) = \frac{e^{\log(\sin(z))/2}}{e^{\log(z)/2}} \]
-		
-		$\log(0)$ is never defined so we need to look where $\sin(z)=0$, which is at $z = \pi n$ for $n \in \mathbb{Z}$. Thus, if we call the radius of convergence $R$, we see that $R \leq \pi$.
-	\end{proof}
-	
-	\begin{proof}
-		Since $f(z)^2 = \frac{\sin z}{z}$ then we have $f(z) = \sqrt{\frac{\sin z}{z}}$ which we interpret as
-		\[ f(z) = e^{ \log (\sin z/z)/2 } \]
-		Thus, the obstruction to analyticity occurs dependent on the term $\log(\sin z/z)$.
-		First, note that $\sin z/z$ has a removable singularity at $z=0$ since
-		$\lim_{z \rightarrow 0}\frac{\sin z}{z} = \lim_{z \rightarrow 0} \frac{\cos z}{1} = 1$. Thus, $\log(\sin z/z)$ can be holomorphically extended in a simply connected disk centered at $z=0$ provided $\sin z/z$ is nonzero. Thus, an upper bound for the radius of convergence is $\pi$ since $\sin (\pi)/\pi = 0$.
-	\end{proof}
-	
-	\begin{proof}
-		Suppose that there were a holomorphic function satisfying $f(z)^2 = \sin z /z $ look at power series expansions
-		Then %\[f(z) = \sum_{n \
-	\end{proof}
-		
-	Hmm. Interesting. Is this well defined? I think so because complex.
-	Maybe its all of C? Theres definitely a pole at $0$, but $z^{1/2}$ is entire, $\sin z$ is entire, so $\sqrt{\sin z}$ is entire.
-	
-	The power series expansion of $1/z$ converges except at $0$, and so $1/\sqrt{z}$ is analytic except at $0$. Then the product is analytic so $\sqrt{\frac{\sin z}{z}}$ is analytic. 
-	
-	There is a theorem that if $f$ is nonvanishing on $\Omega$ then there is a g so that $f = e^g$.
-	
-	Does the branch cut force the radius of convergence (since centered at $0$) to be $R=0$?
-	
-	There is a removable discontinuity at $z=0$, which can be fixed by $f(0) = \pm 1$. Is this function well defined? if not well defined then certainly can't be convergent.
+%	\begin{proof}
+%		Since $f(z)^2 = \frac{\sin z}{z}$, then $f(z) = \frac{(\sin z)^{1/2}}{z^{1/2}}$. 
+%		Recall that we define exponentiation in $\mathbb{C}$ to be $z^\alpha = e^{\alpha \log z}$, and so we have that 
+%		\[ f(z) = \frac{e^{\log(\sin(z))/2}}{e^{\log(z)/2}} \]
+%		
+%		$\log(0)$ is never defined so we need to look where $\sin(z)=0$, which is at $z = \pi n$ for $n \in \mathbb{Z}$. Thus, if we call the radius of convergence $R$, we see that $R \leq \pi$.
+%	\end{proof}
+%	
+%	\begin{proof}
+%		Since $f(z)^2 = \frac{\sin z}{z}$ then we have $f(z) = \sqrt{\frac{\sin z}{z}}$ which we interpret as
+%		\[ f(z) = e^{ \log (\sin z/z)/2 } \]
+%		Thus, the obstruction to analyticity occurs dependent on the term $\log(\sin z/z)$.
+%		First, note that $\sin z/z$ has a removable singularity at $z=0$ since
+%		$\lim_{z \rightarrow 0}\frac{\sin z}{z} = \lim_{z \rightarrow 0} \frac{\cos z}{1} = 1$. Thus, $\log(\sin z/z)$ can be holomorphically extended in a simply connected disk centered at $z=0$ provided $\sin z/z$ is nonzero. Thus, an upper bound for the radius of convergence is $\pi$ since $\sin (\pi)/\pi = 0$.
+%	\end{proof}
+%	
+%	\begin{proof}
+%		Suppose that there were a holomorphic function satisfying $f(z)^2 = \sin z /z $ look at power series expansions
+%		Then %\[f(z) = \sum_{n \
+%	\end{proof}
+%		
+%	Hmm. Interesting. Is this well defined? I think so because complex.
+%	Maybe its all of C? Theres definitely a pole at $0$, but $z^{1/2}$ is entire, $\sin z$ is entire, so $\sqrt{\sin z}$ is entire.
+%	
+%	The power series expansion of $1/z$ converges except at $0$, and so $1/\sqrt{z}$ is analytic except at $0$. Then the product is analytic so $\sqrt{\frac{\sin z}{z}}$ is analytic. 
+%	
+%	There is a theorem that if $f$ is nonvanishing on $\Omega$ then there is a g so that $f = e^g$.
+%	
+%	Does the branch cut force the radius of convergence (since centered at $0$) to be $R=0$?
+%	
+%	There is a removable discontinuity at $z=0$, which can be fixed by $f(0) = \pm 1$. Is this function well defined? if not well defined then certainly can't be convergent.
 \end{enumerate}
 
 
