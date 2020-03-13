@@ -16,7 +16,20 @@ Where possible, computations have been also done using SageMath code available o
 
 \begin{enumerate}
 
-
+	\item Tell the values of $i^i$.
+	
+	\begin{proof}
+		Recall that $z^i$ is given by $e^{i \log z}$ on a suitably defined branch of the logarithm.
+		As long as we choose a branch whose branch-cut is not along the positive imaginary axis, we see
+		$\log i = i \pi/2 + 2\pi  i k$ since $e^{\pi i /2}e^{2\pi i k} = e^{i \pi/2} = i$
+		
+		Thus, for $k \in \mathbb{Z}$, $i^i$ takes on the values of
+		\begin{align*}
+			e^{i \log i } = e^{ i(  \pi i/2 + 2\pi i k)} = e^{- \pi/2 + 2\pi k} 
+		\end{align*}
+		  on the positive real axis.
+		
+	\end{proof}	
 	\setcounter{enumi}{1}
 	
 	\item Write the Laurent expansion of $f(z) = \frac{1}{z^4-1}$ centered at $0$ and convergent in $|z|>1$.
