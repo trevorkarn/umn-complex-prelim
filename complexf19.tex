@@ -5,8 +5,12 @@
 \usepackage{amsfonts}
 \usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
+\usepackage{tikz}
 
 \DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\re}{re}
+\DeclareMathOperator{\len}{len}
+\DeclareMathOperator{\res}{res}
 
 \title{\href{https://math.umn.edu/sites/math.umn.edu/files/exams/complexf19.pdf}{Fall 2019 Complex Analysis Preliminary Exam}}
 \author{University of Minnesota}
@@ -76,7 +80,115 @@ Where possible, computations have been also done using SageMath code available o
 	
 Note that there is also a Laurent series which converges for the annulus $0 < |z| < 1$. This can be found by using the geometric series expansion \[\frac{1}{z-1} = \frac{-1}{1-z} = - \sum_{n=0}^\infty z^n\] which of course converges for $|z|< 1$, and using the same expansion of $\frac{1}{z-2}$ as above. This is the one provided by SageMath. For another example of this, see \href{https://math.stackexchange.com/questions/2553132/laurent-series-for-different-domains}{this math StackExchange post}.
 
-\setcounter{enumi}{4}
+	\item Classify entire functions $f$ so that $|f(z)| \leq C |z|$ for some constant $C$.
+	
+	\begin{proof}
+		Liouville's theorem tells us that bounded, entire functions are constant. 
+		%
+		If $f(z)/z$ is entire, then Liouville's theorem would tell us that $f(z)/z$ is a constant (call it $k$), and so since $f(z)/z = k$, then $f(z) = kz$.
+		%
+		If $f(z)/z$ is not entire, then there is a simple pole at $z=0$ (since $f(z)$ is entire). 
+		This would imply that in (e.g.) the open disk centered at $z_0 = 1$ with radius $1$, we would have $f(z)/z$ being unbounded. 
+		But this contradicts that $|f(z)/z| \leq C$ is bounded on all of $\mathbb{C} - \{0\}$.
+		
+		Thus, the functions $f$ which satisfy $|f(z)| \leq C |z|$ are linear functions with no constant term.
+	\end{proof}
+
+	\newpage
+	\item Evaluate $\displaystyle \int_{-\infty}^\infty \frac{\cos(x)}{1+x^2} dx$. 
+	% WolframAlpha tells us the answer is pi/e 
+	% See residue theorem and estimation lemma on Wikipedia 
+	
+	\begin{proof}
+		
+		
+		We compute this real integral by passing to complex values and computing.
+		
+		Define \[f(z) = \frac{e^{iz}}{1+z^2} = \frac{e^{iz}}{(z+i)(z-i)}.\] 
+		We make this choice of $f$ because for $x$ on the real axis, we have $f(x) = \frac{\cos(x) + i \sin(x)}{1+x^2}$, which is to say
+		$\re f(x) = \frac{\cos (x)}{1+x^2}.$ 
+		
+		
+%		But since $\cos$ is an even function $\cos (-x) = \cos x$ thus \[\re f(x) = \frac{\cos (x)}{1+x^2}\] which is the integrand of the integral which we are trying to compute.
+%		We will thus compute  \[\re \left(\int_{-\infty}^\infty f(z) dz \right) = \int_{-\infty}^\infty \frac{\cos(x)}{1+x^2} dx\]
+%		
+		For $t > 1$, let $\gamma_t$ denote the union of the line from $[-t,t]$ with the semi-circle of radius $t$ in the upper half-plane (call it $C_t$), with the orientation of $\gamma_t$ being counter clockwise.
+		
+		Visually:
+		
+		\begin{center}
+		\begin{tikzpicture}
+			%\draw[step=1cm,gray,very thin] (-2.9,-0.9) grid (2.9,2.9);
+			\draw[thin,->] (0,-1) -- (0,3); 
+			\draw[thin,->] (-3,0) -- (3,0);
+			
+			\node[anchor = north east] at (0,3) {$i \mathbb{R}$};
+			\node[anchor = west] at (3,0) {$ \mathbb{R}$};
+			
+			\node[fill = black, inner sep=1pt, circle] at (0,1) {};
+			\node[anchor = west] at (0,1) {$i$};
+			
+			\node[anchor = north] at (2.3,0) {$t$};
+			\node[anchor = north] at (-2.3,0) {$-t$};
+			
+			\node at (-1.75,1.8) {$\gamma_t$};
+			
+			\draw[thick] (2.3,0) arc (0:180:2.3) ;
+			\draw[thick,->] (-2.3,0) -- (0.5,0) ; 
+			\draw[thick] (0.5,0)--(2.3,0);
+		\end{tikzpicture}
+		\end{center}
+		
+		By the residue theorem, we know that as long as $t > 1$ 
+		\[ \int_{\gamma_t} f(z)dz = 2\pi i \res_{i} f(z) .\]
+		
+		Since $i$ is a simple pole of $f(z)$ (as seen by the factorization $1+z^2 = (z+i)(z-i)$), we can compute 
+		\begin{align*}
+			\res_i f &= \lim_{z \rightarrow i} (z-i) f(z)\\
+			&= \lim_{z \rightarrow i} (z-i)\frac{e^{iz}}{(z+i)(z-i)}\\
+			&= \lim_{z \rightarrow i}\frac{e^{iz}}{(z+i)} \\
+			&= \frac{e^{-1}}{2i} = \frac{1}{2ie}
+		\end{align*}
+		and so 
+		\[ \int_{\gamma_t} f(z)dz = 2\pi i\frac{1}{2ie} = \frac{\pi}{e}  .\]
+		
+		We can split up the integral of $f(z)$ over $\gamma_t$ along the real axis and the semi-circle as
+		\[\int_{\gamma_t} f(z) dz = \int_{[-t,t]} f(z) dz + \int_{C_t} f(z) dz.\]
+		
+		The estimation lemma or ``ML inequality" tells us that since the length of a semicircle of radius $r$ is $\pi r$, then
+		\begin{align*}
+			\left | \int_{C_t} f(z) dz  \right | &\leq \pi t \max_{z \in C_t} |f(z)|
+		\end{align*}
+		
+		We now compute an upper bound for $ \max_{z \in C_t} |f(z)|$, 
+		\begin{align*}
+			\left | \frac{e^{iz}}{1+z^2}\right | = \frac{ | e^{iz} | }{|1+z^2|}
+		\end{align*}
+		
+		Note that $C_t$ only contains points with $\im z > 0$, and so if $z = x + i y$, then 
+		${|e^{iz}| = |e^{ix - y}| = e^{-y} < 1}$
+		thus in $C_t$
+		\[\left | \frac{e^{iz}}{1+z^2}\right | \leq \frac{ 1 }{|1+z^2|}\]
+		
+		The reverse triangle inequality tells us (again only considering $z \in C_t$) that \[|z^2 - (-1) | > \left ||z^2| - | -1|\right| = \left ||z|^2 - 1\right| = |t^2 - 1|\]
+		And so
+		thus in $C_t$
+		\[\left | \frac{e^{iz}}{1+z^2}\right | \leq \frac{ 1 }{|t^2-1|}\]. 
+		
+		Taking the limit as $t \rightarrow \infty$ we see that the integral over $C_t$ goes to zero, and so
+		
+		\[ \lim_{t \rightarrow \infty } \int_{\gamma_t} f(z)dz =  \lim_{t \rightarrow \infty} \int_{[-t,t]} f(z) dz = \int_{(-\infty, \infty)} f(z) dz .\]
+		
+		But the integral over $\gamma_t$ is independent of $t$, and so
+		\[\int_{(-\infty, \infty)} f(z) dz = \pi/e.\]
+		
+		Recall that the integral we \textit{wanted} to compute was the real part of the above integral, but since the integral is real, the real part is the whole integral, and so
+		
+		\[\int_{-\infty}^\infty \frac{\cos x}{1+x^2} dx = \frac{\pi}{e}\]
+		
+	\end{proof}
+	
+	
 	\item Determine the radius of convergence of the power series for $z \log z$ at $z_0 = -3 + 4i$.
 	
 	\begin{proof}
@@ -90,8 +202,13 @@ Note that there is also a Laurent series which converges for the annulus $0 < |z
 		
 		Since $R \leq 5$ and $R \geq 5$, we have $R = 5$.
 	\end{proof}
+	
+	\newpage
+	
+	\item Let $f,g$ be holomorphic functions on $\{z : |z| < 2\}$ with $f$ nonvanishing on $|z| = 1$. Show that for all sufficiently small $\epsilon>0$ the function $f+ \epsilon g$ has the same number of zeros inside $|z| = 1$ as does $f$. 
+
+	% Thoughts: Rouche's theorem combined with maximum modulus principle.
 
 \end{enumerate}
-
 
 \end{document}
