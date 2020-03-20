@@ -12,6 +12,8 @@
 \DeclareMathOperator{\len}{len}
 \DeclareMathOperator{\res}{res}
 
+\renewcommand{\epsilon}{\varepsilon}
+
 \title{\href{https://math.umn.edu/sites/math.umn.edu/files/exams/complexf19.pdf}{Fall 2019 Complex Analysis Preliminary Exam}}
 \author{University of Minnesota}
 \date{}
@@ -203,12 +205,32 @@ Note that there is also a Laurent series which converges for the annulus $0 < |z
 		Since $R \leq 5$ and $R \geq 5$, we have $R = 5$.
 	\end{proof}
 	
-	\newpage
-	
+
 	\item Let $f,g$ be holomorphic functions on $\{z : |z| < 2\}$ with $f$ nonvanishing on $|z| = 1$. Show that for all sufficiently small $\epsilon>0$ the function $f+ \epsilon g$ has the same number of zeros inside $|z| = 1$ as does $f$. 
+	
+	\begin{proof}
+		Since $f,g$ are holomorphic on $\{ z: |z| < 2\}$, they are holomorphic on the compact sets $D = \{z : |z | \leq 1\}$ and its boundary $\partial D =\{z : |z| = 1\}$.
+		
+		Rouche's theorem states that if $|\epsilon g| \leq |f|$ on $\partial D$ (which can be thought of as a closed curve) then $f$ and $f+ \epsilon g$ have the same number of zeros inside $D$. 
+		Thus our goal will be to find $\epsilon > 0$ which establishes this bound.
+		
+		Since $f,g$ are holomorphic on $\partial D$, they are continuous, and since $\partial D$ is a closed subset of $\mathbb{C}$, it is compact.
+		The modulus function is also continuous, and so by composition,		
+		$|f|,|g|$ are both continuous real-valued functions and thus achieve a maximum and minimum on $\partial D$.
+		
+		Let $m = \min_{z \in \partial D} f$ and $M = \max_{z \in \partial D} g$. Pick $\epsilon < \frac{m}{M}$. Then on $\partial D$ 
+		\begin{align*}
+			| \epsilon g | &= \epsilon |g|\\
+			& < \frac{m}{M} |g|\\
+			& \leq \frac{m}{M}M\\
+			&= m \leq |f|.
+		\end{align*}
+	\end{proof}
 
-	% Thoughts: Rouche's theorem combined with maximum modulus principle.
-
+%	\item Show that the curve $z^2 + w^2 = 1$ has genus $0$.
+%	
+%	This is a hyper elliptic curve since $z^2 = 1-w^2$.
+	
 \end{enumerate}
 
 \end{document}
