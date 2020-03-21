@@ -5,6 +5,12 @@
 \usepackage{amsfonts}
 \usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{wasysym}
+
+\DeclareMathOperator{\re}{re}
+\DeclareMathOperator{\res}{res}
+
 
 \title{\href{https://math.umn.edu/sites/math.umn.edu/files/exams/complexs19.pdf}{Spring 2019 Complex Analysis Preliminary Exam}}
 \author{University of Minnesota}
@@ -60,6 +66,87 @@
 		Thus, the first three nonzero terms of the expansion of $f$ are 
 		$a_0 = -1$, $a_5=-1$, and $a_{10} = -1$.
 	\end{proof}
+	
+	\item Classify entire functions $f$ such that $|f(z)| \leq 1 + \sqrt{|z|}$
+	
+	\item Evaluate $\displaystyle \int_{-\infty}^\infty \frac{\sin(x)}{1+x^2} dx$
+	
+	\begin{proof}
+		Let $f: \mathbb{C} \rightarrow \mathbb{C}$ be given by $f(z) = \frac{-i e^{iz}}{1+z^2}.$ 
+		When we restrict to $x \in \mathbb{R}$, we have 
+		$f(x) = \frac{-ie^{ix}}{1+z^2} = \frac{-i(\cos x + i \sin x)}{(z+i)(z-i)}$ and so $f$ has real part $\re f(x) = \frac{\sin(x)}{1+x^2}$.
+		Thus, the real part of the integral $\re \left (\int_{-\infty}^{\infty} f(z) dz \right)$ is the integral we wish to compute.
+		
+		Note that the numerator of $f$ is entire and the denominator is also entire and is only $0$ at $z = \pm i$.
+		
+		Let $t>0$ and let $\gamma_t$ be the curve given by the union of $[-t,t] \subset \mathbb{R}\subset \mathbb{C}$ with the upper half-circle of radius $t$, with positive orientation. 
+		Visually:
+		\begin{center}
+		\begin{tikzpicture}
+			%\draw[step=1cm,gray,very thin] (-2.9,-0.9) grid (2.9,2.9);
+			\draw[thin,->] (0,-1) -- (0,3); 
+			\draw[thin,->] (-3,0) -- (3,0);
+			
+			\node[anchor = north east] at (0,3) {$i \mathbb{R}$};
+			\node[anchor = west] at (3,0) {$ \mathbb{R}$};
+			
+			\node[fill = black, inner sep=1pt, circle] at (0,1) {};
+			\node[anchor = west] at (0,1) {$i$};
+			
+			\node[anchor = north] at (2.3,0) {$t$};
+			\node[anchor = north] at (-2.3,0) {$-t$};
+			
+			\node at (-1.75,1.8) {$\gamma_t$};
+			
+			\draw[thick] (2.3,0) arc (0:180:2.3) ;
+			\draw[thick,->] (-2.3,0) -- (0.5,0) ; 
+			\draw[thick] (0.5,0)--(2.3,0);
+		\end{tikzpicture}
+		\end{center}
+		
+		Since $f$ is holomorphic on and inside $\gamma_t$ except at $i$, which is a simple pole
+		the residue theorem tells us that 
+		$\int_{\gamma_t} f(z) dz = 2\pi i \res_{i} f(z)$.
+		
+		To compute $\res_i f(z)$, take $\lim_{z \rightarrow i} (z-i) f(z) = \lim_{z \rightarrow i} \frac{-ie^{iz}}{z+i} = \frac{-i}{e (2i)} =\frac{-1}{2e}$
+		
+		So then $\int_{\gamma_t} f(z)dz = -\frac{\pi i}{e}$.
+		
+		We can split the integral into the part along $[-t,t]$ and along $C_t$, the upper half-circle of radius $t$, as
+		\[ \int_{\gamma_t} f(z) dz = \int_{[-t,t]} f(z) dz + \int_{C_t} f(z) dz.\]
+		We can use the estimation lemma to bound the magnitude of integral over the half-circle as 
+		\begin{align*}
+			|\int_{C_t} f(z) dz |&\leq \pi t \sup_{z \in C_t} |f(z)|.
+		\end{align*}
+		To compute 
+		\begin{align*}
+			\sup_{z \in C_t} |f(z)| &= \sup_{z \in C_t} \left | \frac{-ie^{iz} }{1+z^2} \right |\\
+			&= \sup_{z \in C_t} \frac{|e^{iz} |}{|1+z^2|} \\
+		\end{align*}
+		When we consider $z = x+iy \in C_t$, we see that $|e^{iz}| = |e^{i(x+iy)}| = | e^{ix-y} | = e^{-y} \leq 1$
+		so 
+		\begin{align*}
+			\sup_{z \in C_t} \frac{|e^{iz} |}{|1+z^2|} & \leq \sup_{z \in C_t} \frac{1}{|1+z^2|} \\
+			&\leq \sup_{z \in C_t} \frac{1}{||z^2|- |-1||} & (\text{reverse triangle inequality})\\
+			&= \sup_{z \in C_t} \frac{1}{| |z^2| - 1|}\\
+			&= \sup_{z \in C_t} \frac{1}{| t^2 -1 |}\\
+			&= \frac{1}{|t^2-1|}.
+		\end{align*}
+		
+		Thus, we have
+		\[ \left |\int_{C_t} f(z) dz \right |\leq \pi t \frac{1}{|t^2-1|}  \]
+		and taking the limit $t \rightarrow \infty$ we see
+		\[ \lim_{t \rightarrow \infty} \int_{C_t} f(z) dz = 0.\]
+		Thus, in the limit
+		\[ \lim_{t \rightarrow \infty} \int_{\gamma_t} f(z) dz = \lim_{t \rightarrow \infty} \int_{[-t,t]} f(z) dz = \int_\mathbb{R} f(z) dz.\]
+		The integral over $\gamma_t$ was independent of $t$ (thanks residue theorem \smiley{}), so we see
+		\[ \int_\mathbb{R} f(z) dz = \frac{-\pi i}{e}.\]
+		We wanted to compute the real part
+		\[ \int_\mathbb{R} \frac{\sin x}{1+x^2} dx = 0.\]
+		
+		We could also see that $1+x^2$ is an even function and $\sin(x)$ is an odd function so $\sin(x)/(1+x^2)$ is an odd function, 
+		so its integral must be 0, but why do that when we could use the residue theorem \smiley{}.
+	\end{proof}	
 	
 	\setcounter{enumi}{4}
 	
