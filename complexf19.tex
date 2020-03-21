@@ -227,7 +227,17 @@ Note that there is also a Laurent series which converges for the annulus $0 < |z
 		\end{align*}
 	\end{proof}
 
-%	\item Show that the curve $z^2 + w^2 = 1$ has genus $0$.
+	\item Show that the curve $z^2 + w^2 = 1$ has genus $0$.
+	
+	\begin{proof}
+		This is a hyper elliptic curve since $z^2 = 1-w^2 = - (w+1)(w-1)$. 
+		Note that $f(w)$ is square-free in $\mathbb{C}$ since the only root of $f^\prime(w) = -2w$ is $0$ and the roots of $f$ are $\pm 1$. 
+		Since $f$ and its derivative share no common roots, it is squarefree.
+		
+		Since $f(w) = 1-w^2$ is square-free, the Riemann-Hurwitz formula tells us
+		\[g  = \begin{cases} \frac{\deg(f)-1}{2} & \text{if } \deg(f) \text{ odd} \\ \frac{\deg{f}-2}{2} & \text{if } \deg(f) \text{ even}  \end{cases}. \]
+		Since $\deg f = 2$ is even, we have the genus $g = \frac{2-2}{2} = 0$
+	\end{proof}
 %	
 %	This is a hyper elliptic curve since $z^2 = 1-w^2$.
 	
