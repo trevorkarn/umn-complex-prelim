@@ -52,16 +52,24 @@ One way to bound from above is to find a pole or essential singularity, and comp
 
 \section{Conformal mapping}
 
-The important theorem for something to be conformal is that it $f$ conformal when $f^\prime$ is nonzero. For a great lecture about this, see the Herb Gross video \href{https://www.youtube.com/watch?v=s1DFa1dCss0}{Complex Variables: Lec 3. Conformal Mappings}. Professor Gross goes into great depth about the intuition of why angles are preserved. It is a bit hand-wavy but very digestible. 
+The important theorem for a map to be conformal is that it $f$ conformal when $f^\prime$ is nonzero. For a great lecture about this, see the Herb Gross video \href{https://www.youtube.com/watch?v=s1DFa1dCss0}{Complex Variables: Lec 3. Conformal Mappings}. Professor Gross goes into great depth about the intuition of why angles are preserved. It is a bit hand-wavy but very digestible. 
 
-It appears that a lately a PG favorite is the so-called \href{http://www-users.math.umn.edu/~garrett/m/complex/notes_2014-15/07_conformal_mapping.pdf}{``Cayley map"} which is a conformal mapping between the open upper half plane $H$ and the unit disk $D$.
-The Cayley map defined by $f(z) = \frac{z+i}{iz+1}$ gives a conformal mapping from $D$ to $H$ and $g(z) = \frac{z-i}{z+i}$ gives a conformal mapping from $H$ to $D$.
+A really useful conformal map is the so-called \href{http://www-users.math.umn.edu/~garrett/m/complex/notes_2014-15/07_conformal_mapping.pdf}{``Cayley map"} which is a conformal mapping between the open upper half plane $H$ and the unit disk $D$. There are many maps which go by the name ``Cayley map," but we will use the one given on \href{https://mathworld.wolfram.com/CayleyTransform.html}{Wolfram MathWorld}.
 
-Probably don't try to recreate the Cayley map, just memorize it.
+A nice way to remember the map was shown to me by Libby Farrell. 
+We can think of the upper half plane as all points which are closer to $i$ than to $-i$. 
+In other words, the upper half plane satisfies $| z - i | < |z- (-i)|$, which would imply $\frac{|z-i|}{|z+i|}  = \left | \frac{z-i}{z+i} \right |< 1$. 
+This reminds us that $f(z) := \frac{z-i}{z+i}$ takes the upper half plane conformally to the unit disk. 
+Then we can remember that the formula for the inverse of a linear fractional transform $\frac{az + b}{cz+d}$ looks like the way to take the inverse of a $2\times 2$ matrix namely $\frac{dz - b}{-cz + a}$.\footnote{This is not a coincidence! See PG's notes for further detail.} 
+Thus, the inverse of $f(z) = \frac{z-i}{z+i}$ is $f^{-1}(z) = \frac{iz + i}{-z+1}$, which would thus be a conformal mapping from the disk to the upper half plane. We could check that (for example) $\frac{0+i}{-0+1}$ takes $0 \mapsto i$, and reminding us that the interior of the disk maps to the interior of the upper half plane.
 
-%\begin{enumerate}
-%	\item 
-%\end{enumerate}
+There are some useful facts about the Cayley map:
+\begin{enumerate}
+	\item In general, a certain half-disk will be in correspondence with quadrant under some version of the Cayley map.
+	\item For our $f^{-1}$, the upper-half disk will be taken to the second quadrant. If you forget, just plug in $x+iy$ and compute $f^{-1}(x+iy)$, and conditions on $x,y$ will tell you what goes where.
+\end{enumerate}
+
+Finally, remember that multiplication by a constant is a conformal mapping. Thus, since multiplication by $i$ corresponds to a 90-degree rotation of the complex plane, it is useful to remember you can shift things using that mulitplication. Finally, the map $z \mapsto z^2$ is a conformal mapping (as long as $0$ isn't in the domain of the function) which doubles angles so, for example, the upper half-unit-disk gets mapped to the slit unit-disk under this map.
 
 \section{Show a function is constant}
 
@@ -74,5 +82,19 @@ There are a few different tools to show an entire function is constant based on 
 \item The \textbf{open mapping theorem} states that non-constant holomorphic functions are open maps (i.e. they send open sets to open sets). If you can show that the image under a holomorphic function of an open set is closed, then the function must be constant.
 \end{enumerate}
 
+
+\section{Compute an integral}
+
+There are a few different ways to compute an integral. 
+
+\begin{enumerate}
+	\item The \textbf{residue theorem}
+	\item The \textbf{estimation lemma} (helpful to know triangle inequality/reverse triangle inequality)
+	\item As a general technique, compute a finite contour integral, split the contour into a few different pieces (usually one of which is a finite line segment $[-t,t]$) then take the limit as $t \rightarrow \infty$.
+\end{enumerate}
+
+\section{Compute the genus of a curve}
+
+Riemann-Hurwitz formula
 
 \end{document}

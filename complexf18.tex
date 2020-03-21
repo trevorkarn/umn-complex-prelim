@@ -51,6 +51,17 @@ Where possible, computations have been also done using SageMath code available o
 		\end{cases}\]
 	\end{proof} 
 	
+	\item Let $f$ be an entire function so that $\Re f(z)$ is \textit{nonnegative} for all $z \in \mathbb{C}$. Show that $f$ is constant.
+	
+	\begin{proof}
+		Denote $z = x+iy$ where $x,y$ are real, and let
+		$f(z) = f(x,y) = u(x,y) + i v(x,y).$
+		
+		We know that if $z = x+iy$ and $f(z) = f(x,y) = u(x,y) + i v(x,y)$, where $u,v$ are real-valued functions, then in order for $f$ to be entire it
+		must satisfy the Cauchy-Riemann equations
+		\[ \frac{\partial u}{\partial x} = \frac{\partial v}{\partial y} \; \; \; \; \frac{\partial u}{\partial y} = - \frac{\partial v}{\partial x} \]
+	\end{proof}
+	
 	\setcounter{enumi}{5}
 	\item Determine the radius of convergence of the power series for $\log z$ at $z_0 = -4 + 3i$.
 	
