@@ -1,14 +1,19 @@
 \documentclass[10pt]{article}
 
 \usepackage{amsfonts}
+\usepackage{amsmath}
 \usepackage{enumitem}
 \usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
 \usepackage{sectsty}
 
-\sectionfont{\large}
+\DeclareMathOperator{\res}{res}
 
+\sectionfont{\large}
+\title{Complex Analysis Preliminary Written Exam Prep}
 \begin{document}
+\date{}
+\maketitle
 The goal of this document is to give a general outline of how to solve problems for the Complex Analysis prelim. See the study log for specific old prelim questions relevant to each section.
 
 \section{Laurent Series}
@@ -48,7 +53,7 @@ Suppose we are given a function $f(z)$ and asked to find the radius of convergen
 The general idea is to first bound the size of the disk from above, then from below. One way to bound from below is to explicitly construct a holomorphic function on a disk of the desired size which agrees with given function, by using (b) and (c) above.
 One way to bound from above is to find a pole or essential singularity, and compute the distance between a pole or essential singularity and the given point $z_0$.
 
-\section{Complex $n$th roots}
+%\section{Complex $n$th roots}
 
 \section{Conformal mapping}
 
@@ -78,23 +83,42 @@ There are a few different tools to show an entire function is constant based on 
 \begin{enumerate}
 \item We know that an entire function $f(z) = f(x,y) = u(x,y) + i v(x,y)$ satisfies the \textbf{Cauchy-Riemann equations},
 \[ \frac{\partial u}{\partial x} = \frac{\partial v}{\partial y} \; \; \; \; \frac{\partial u}{\partial y} = - \frac{\partial v}{\partial x} .\]
+Thus, if you can show some of these are $0$, you know the other one is zero.
+
 \item \textbf{Liouville's theorem} states that every bounded entire function is constant.
 \item The \textbf{open mapping theorem} states that non-constant holomorphic functions are open maps (i.e. they send open sets to open sets). If you can show that the image under a holomorphic function of an open set is closed, then the function must be constant.
 \end{enumerate}
 
 
 \section{Compute an integral}
-
-There are a few different ways to compute an integral. 
+A classic question is to compute a real integral by passing to complex integrals first.
+There are a few different ways to compute such an integral.
 
 \begin{enumerate}
-	\item The \textbf{residue theorem}
-	\item The \textbf{estimation lemma} (helpful to know triangle inequality/reverse triangle inequality)
-	\item As a general technique, compute a finite contour integral, split the contour into a few different pieces (usually one of which is a finite line segment $[-t,t]$) then take the limit as $t \rightarrow \infty$.
+	\item The \textbf{residue theorem} states that if $f$ is a holomorphic in an open set containing a circle $C$ and its interior, except for a pole at $z_0$ in $C$ then 
+	\[ \int_C f(z) dz = 2\pi i \res_{z_0} f.\]
+	%
+	In the case that there is a simple pole at $z_0$ we can compute
+	\[ \res_{z_0} f = \lim_{z \rightarrow z_0} (z-z_0) f(z).\]
+	In the case that there is a pole of order $n$ at $z_0$, we can compute
+	\[ \res_{z_0} f = \lim_{z \rightarrow z_0} \frac{1}{(n-1)!} \left ( \frac{d}{dz}\right )^{n-1} (z-z_0)^n f(z).\]
+	You can remember the second formula from the first by considering \[(z-z_0)^n f(z) = a_{-n} +  \cdots + a_{-1} (z-z_0)^{n-1} + G(z) (z-z_0)^n,\] and iterating the formal derivative for power series.
+	
+	\item The \textbf{estimation lemma} states that if $\gamma$ is a contour of length $L$, 
+	then the integral \[ \left | \int_{\gamma} f(z) dz \right | \leq L \sup_{z \in \gamma} | f(z) |.\]
+	This is especially helpful to show that an integral (or part of an integral) vanishes.
+	
+	\item As a general technique, compute a finite contour integral, split the contour into a few different pieces (usually one of which is a finite line segment $[-t,t] \subseteq \mathbb{R}$) then take the limit as $t \rightarrow \infty$.
+	You can often start out with a closed contour and use the resuidue theorem to get a value, and show
+	that part of the integral vanishes using the estimation lemma. If you set up the integral right, 
+	then the part which is \emph{not} on the real line should vanish and so you are left with 
+	the $2\pi i \res_{z_0} f$.
+	
 \end{enumerate}
 
 \section{Compute the genus of a curve}
-
-Riemann-Hurwitz formula
+Let $\pi$ be a hyper elliptic curve with $y^2 = f(x)$ where $f$ is a square-free polynomial in $x$. Then the Riemann-Hurwitz formula\footnote{For further detail, see \href{PG's notes}{http://www-users.math.umn.edu/~garrett/m/complex/notes\_2014-15/ERNPRHH.pdf}} tells us that the genus $g_Y$ is 
+\[g_Y  = \begin{cases} \frac{\deg(f)-1}{2} & \text{if } \deg(f) \text{ odd} \\ \frac{\deg{f}-2}{2} & \text{if } \deg(f) \text{ even}  \end{cases}. \]
+To solve these problems rewrite the given function as $y^2 = $(a polynomial) and then use the formula.
 
 \end{document}
