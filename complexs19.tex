@@ -3,7 +3,7 @@
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{amsfonts}
-\usepackage[margin=1in]{geometry}
+\usepackage[margin=0.5in]{geometry}
 \usepackage{hyperref}
 \usepackage{tikz}
 \usepackage{wasysym}
@@ -68,6 +68,26 @@
 	\end{proof}
 	
 	\item Classify entire functions $f$ such that $|f(z)| \leq 1 + \sqrt{|z|}$
+	
+	\begin{proof}
+		We appeal to Cauchy's inequality which states that if $f$ is entire, and $\gamma_R$ is any
+		circle of radius $R$ centered at the origin, then 
+		\[ |f^{(n)}(0) | \leq \frac{n! \sup_{z \in \gamma_R} f(z)}{R^n}.\]
+		Since $f$ is entire, pick a power series representation centered at $0$, and call it 
+		$f(z) =: \sum_{n \geq 0} \alpha_n z^n$.
+		Then $\alpha_n = \frac{f^{(n)}(0)}{n!}$, and so
+		\begin{align*}
+		| \alpha_n | & \leq \frac{\sup_{z \in \gamma_R} f(z)}{R^n} &\text{(By Cauchy's ineq.)}\\
+		&\leq \frac{ \sup_{z \in \gamma_R} (1+ \sqrt{|z|})}{R^n} &\text{(Bound provided)}\\
+		&=\frac{1 + \sqrt{R}}{R^n} & \text{($|z|$ is constant on $\gamma_R$)}.
+		\end{align*}
+		Since this must hold for all $R$ and all $n$, we take the limit
+		\[|\alpha_n| \leq \lim_{R \rightarrow \infty} \frac{1+\sqrt{R}}{R^n} = \begin{cases} 0 & n \geq 1 \\ \infty & n = 0 \end{cases}\]
+		which forces $f$ to be a constant function.
+		Note now that if $f$ is constant, then $f(z) = f(0)$ for all $z$, and so the provided bound that
+		$|f(z)| \leq 1 + \sqrt{|z|}$ tells us that $|f(z)| \leq 1$. So we conclude that $f(z)$ is a constant function taking a 
+		value inside the unit disk.
+	\end{proof}
 	
 	\item Evaluate $\displaystyle \int_{-\infty}^\infty \frac{\sin(x)}{1+x^2} dx$
 	
@@ -157,7 +177,7 @@
 	%
 	Recall that we define complex exponentiation by $z^\alpha := e^{\alpha \log z}$, so $\sqrt{z} = e^{\log(z)/2}$. Composition of holomorphic functions is holomorphic, so since $e^w$ is entire, the radius of convergence is limited by $\log(z)$. 
 	
-	There is no number $w \in \mathbb{C}$ such that $e^w = 0$, and so there is no possible way to have a holomorphic logarithm at $0$. This bounds the radius of convergence by $|-3 + 4i - 0|=5$. 
+	There is no number $w \in \mathbb{C}$ such that $e^w = 0$, and so there is no possible way to have a holomorphic logarithm at $0$. This bounds the radius of convergence from above by $|-3 + 4i - 0|=5$. 
 	
 	On the other hand, it is a theorem\footnote{Theorem 6.1 in Chapter 3 of Stein and Shakarchi's \textit{Complex Analysis}} that if $\Omega$ is simply connected and does not contain $0$, then there is a branch of the logarithm which is holomorphic on $\Omega$. Consider the open disk $D$ of radius $5$ and centered at $-3 + 4i$. Clearly $D$ does not contain $0$, and so there is a logarithm (call it $\log_D$) which is holomorphic on $D$. Thus, we have a disk of radius $5$ on which there is a holomorphic function $\log_D$ which agrees with $\log$, and so the radius of convergence is \textit{at least} 5. 
 	
@@ -165,41 +185,89 @@
 	
 	\end{proof}
 	
+	\item Let $f,g$ be holomorphic functions on $\{z : |z| < 2\}$ with $f$ nonvanishing on $|z| = 1$. Show that for all sufficiently small $\epsilon>0$ the function $f+ \epsilon g$ has the same number of zeros inside $|z| = 1$ as does $f$. 
+	
+	\begin{proof}
+		Since $f,g$ are holomorphic on $\{ z: |z| < 2\}$, they are holomorphic on the compact sets $D = \{z : |z | \leq 1\}$ and its boundary $\partial D =\{z : |z| = 1\}$.
+		
+		Rouche's theorem states that if $|\epsilon g| \leq |f|$ on $\partial D$ (which can be thought of as a closed curve) then $f$ and $f+ \epsilon g$ have the same number of zeros inside $D$. 
+		Thus our goal will be to find $\epsilon > 0$ which establishes this bound.
+		
+		Since $f,g$ are holomorphic on $\partial D$, they are continuous, and since $\partial D$ is a closed subset of $\mathbb{C}$, it is compact.
+		The modulus function is also continuous, and so by composition,		
+		$|f|,|g|$ are both continuous real-valued functions and thus achieve a maximum and minimum on $\partial D$.
+		
+		Let $m = \min_{z \in \partial D} f$ and $M = \max_{z \in \partial D} g$. Pick $\epsilon < \frac{m}{M}$. Then on $\partial D$ 
+		\begin{align*}
+			| \epsilon g | &= \epsilon |g|\\
+			& < \frac{m}{M} |g|\\
+			& \leq \frac{m}{M}M\\
+			&= m \leq |f|.
+		\end{align*}
+	\end{proof}
+	
+	\item Prove that $z^3+w^3 = 1$ defines an elliptic curve.
+	\begin{proof}
+	We will show the equivalent statement that the same curve in $\mathbb{CP}^1\times \mathbb{CP}^1$
+	has genus $1$.
+	We will thus abuse notation and identify points $z \in C$ with their line through the origin,
+	and write the point at infinity as $\infty$.
+	Consider the ramified covering given by $(z,w) \mapsto z$, where $(z,w)$ satisfy
+	$z^3+w^3 -1 = 0$. Since $w^3$ is the highest power of $w$, the degree of the ramified covering is $3$.
+	There are three distinct holomorphic cube root functions via which we can express $z$ except when 
+	$w^3-1 = 0$, since the cube root is not holomorphic at the origin. This occurs at $1, \xi=e^{i 2\pi/3}, \xi^2$.
+	We now want to write $z^3+w^3-1$ as a monic polynomial in $\mathbb{C}[w][z]$.
+	We can write $z^3 + w^3-1 = \sum_{i=0}^3 c_i(w) z^i$, and so $c_0 = w^3-1$, $c_1=c_2=0$, and $z^3=1$.
+	We can thus compute the order of vanishing of each of them at $w=1$.
+	The order of vanishing of $c_0$ is 1. The order of vanishing of $c_1=c_2= \infty$, and the order of vanishing
+	of $c_3$ at $w=1$ is 0.
+	The same computation holds for $w=\xi, \xi^2$.
+	Thus, to compute the ramification index, we can construct the Newton polytope with vertices 
+	\[ (0,0), (1,\infty), (2,\infty), (3,1).\]
+	The three lines we care about are the ones connecting $(0,0) \leftrightarrow (1,\infty)$, $(2,\infty) \leftrightarrow (3,1)$, and $(0,0) \leftrightarrow (3,1)$. 
+	First we check if there is a ramification at $\infty$ by inverting coordinates and looking near $0$.
+	Inverting coordinates yeilds
+	\begin{align*}
+		\frac{1}{z^3} + \frac1{w^3} &= 1\\
+		w^3 + z^3 &= w^3z^3\\
+		z^3 &= w^3(z^3-1)\\
+		\frac{z^3}{z^3-1} &= w^3.
+	\end{align*}
+	In a neighbor of zero there are three distinct cube root functions we could use to solve for $w$, and so there
+	is no ramification at $\infty$.
+	Then we are only left with the line $(0,0) \leftrightarrow (3,1)$, which has slope $1/3$ and so the ramification
+	index is $3$.
+	Thus, we have a set of ramification points given by $\{1, \xi, \xi^2\}$, and each of them has ramification index $3$.
+	The Riemann-Hurwitz formula relates the genus of $Y = \{(z,w):z^3+w^3=1\}$ to the genus of $\mathbb{CP}^1$
+	by
+	\[ 2 g_Y - 2 = n(2g_{\mathbb{CP}^1} - 2) + \sum_{z \in \{1, \xi, \xi^2\}} (e_{z} - 1)  \]
+	where $n$ is the degree of the covering, so we get that 
+	\begin{align*}
+	2 g_Y - 2 &= 3(2 \cdot 0 - 2) + 3 \cdot (3-1) \\
+	&= -6 + 6 = 0\\
+	\Rightarrow g_y &= 1
+	\end{align*}
+	Since the genus is $1$, $Y$ is an elliptic curve.
+	\end{proof}
+	
 	\setcounter{enumi}{7}
 	
 	\item Define $f(z)$ near $0$ by $f(z)^2 = \frac{\sin z}{z}$. What is the radius of convergence of the power series of $f$ at $0$.
 	
-%	\begin{proof}
-%		Since $f(z)^2 = \frac{\sin z}{z}$, then $f(z) = \frac{(\sin z)^{1/2}}{z^{1/2}}$. 
-%		Recall that we define exponentiation in $\mathbb{C}$ to be $z^\alpha = e^{\alpha \log z}$, and so we have that 
-%		\[ f(z) = \frac{e^{\log(\sin(z))/2}}{e^{\log(z)/2}} \]
-%		
-%		$\log(0)$ is never defined so we need to look where $\sin(z)=0$, which is at $z = \pi n$ for $n \in \mathbb{Z}$. Thus, if we call the radius of convergence $R$, we see that $R \leq \pi$.
-%	\end{proof}
-%	
-%	\begin{proof}
-%		Since $f(z)^2 = \frac{\sin z}{z}$ then we have $f(z) = \sqrt{\frac{\sin z}{z}}$ which we interpret as
-%		\[ f(z) = e^{ \log (\sin z/z)/2 } \]
-%		Thus, the obstruction to analyticity occurs dependent on the term $\log(\sin z/z)$.
-%		First, note that $\sin z/z$ has a removable singularity at $z=0$ since
-%		$\lim_{z \rightarrow 0}\frac{\sin z}{z} = \lim_{z \rightarrow 0} \frac{\cos z}{1} = 1$. Thus, $\log(\sin z/z)$ can be holomorphically extended in a simply connected disk centered at $z=0$ provided $\sin z/z$ is nonzero. Thus, an upper bound for the radius of convergence is $\pi$ since $\sin (\pi)/\pi = 0$.
-%	\end{proof}
-%	
-%	\begin{proof}
-%		Suppose that there were a holomorphic function satisfying $f(z)^2 = \sin z /z $ look at power series expansions
-%		Then %\[f(z) = \sum_{n \
-%	\end{proof}
-%		
-%	Hmm. Interesting. Is this well defined? I think so because complex.
-%	Maybe its all of C? Theres definitely a pole at $0$, but $z^{1/2}$ is entire, $\sin z$ is entire, so $\sqrt{\sin z}$ is entire.
-%	
-%	The power series expansion of $1/z$ converges except at $0$, and so $1/\sqrt{z}$ is analytic except at $0$. Then the product is analytic so $\sqrt{\frac{\sin z}{z}}$ is analytic. 
-%	
-%	There is a theorem that if $f$ is nonvanishing on $\Omega$ then there is a g so that $f = e^g$.
-%	
-%	Does the branch cut force the radius of convergence (since centered at $0$) to be $R=0$?
-%	
-%	There is a removable discontinuity at $z=0$, which can be fixed by $f(0) = \pm 1$. Is this function well defined? if not well defined then certainly can't be convergent.
+	\begin{proof}
+		Recall that we define exponentiation in $\mathbb{C}$ to be $z^\alpha = e^{\alpha \log z}$, and so we have that 
+		\[f(z) = \left(  \frac{\sin z}{z} \right)^{1/2} =e^{\frac12\log \frac{\sin z}{z}}.\]
+		So since $e^z$ is entire, the radius of convergence is the same radius of convergence of $\log \frac{\sin z}{z}$.
+		There is a branch of $\log$ which is holomorphic on any simply-connected domain not containing $0$, 
+		so consider the domain $\Omega = \{ z \in \mathbb{C} : |z| < \pi\}$. 
+		Although it is morally reprehensible, the
+		radius of convergence does not include the point at which the series is centered, and so the fact that
+		$\sin{z} \neq 0$ for all $z \in \Omega$ means that the logarithm is well defined on $\Omega$, and thus
+		radius of convergence (call it $R$) is at least $\pi$.
+		On the other hand, any disc of radius larger than $\pi$ which is centered at $0$ contains $\pi$, and since
+		$\sin(\pi) = 0$, then the logarithm is not well defined on that disk, and so
+		the radius of convergence is $\pi$.
+	\end{proof}
 \end{enumerate}
 
 

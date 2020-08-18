@@ -26,15 +26,19 @@ Where possible, computations have been also done using SageMath code available o
 	\item Give a conformal mapping from the (open) upper half-disk $H = \{z : |z|<1 \text{ and } \im(z) > 0\}$ to the slit disk
 	\[D = \{ z \in \mathbb{C} : |z|< 1,\;z \not \in [0,1] \]
 	
+%	\begin{proof}
+%		First, let $f(z) = 1/z$. Then $f(H) = \{ z : |z|>1 \text{ and } \im(z) > 0 \}$. Since both $f$ and $f^\prime(z) = -z^{-2}$ are never $0$, 
+%		$f$ is a conformal mapping.
+%		%
+%		Now let $g(z) = z^2$. Then $g(f(H)) = \{ re^{i \theta} : r > 1 \text{ and } \theta \in (0, 2\pi) \}$. 
+%		$g=0$ and $g^\prime = 0$ only at $z = 0$, which is not in $f(H)$ so $g \circ f$ is a conformal mapping from $H$ to $g(f(H))$.
+%		%
+%		Finally, note that $f \circ g \circ f(H) = D$. 
+%		Again $f^\prime$ is never zero so the composition $f \circ g \circ f : H \rightarrow D$ is a conformal mapping.
+%	\end{proof}
+
 	\begin{proof}
-		First, let $f(z) = 1/z$. Then $f(H) = \{ z : |z|>1 \text{ and } \im(z) > 0 \}$. Since both $f$ and $f^\prime(z) = -z^{-2}$ are never $0$, 
-		$f$ is a conformal mapping.
-		%
-		Now let $g(z) = z^2$. Then $g(f(H)) = \{ re^{i \theta} : r > 1 \text{ and } \theta \in (0, 2\pi) \}$. 
-		$g=0$ and $g^\prime = 0$ only at $z = 0$, which is not in $f(H)$ so $g \circ f$ is a conformal mapping from $H$ to $g(f(H))$.
-		%
-		Finally, note that $f \circ g \circ f(H) = D$. 
-		Again $f^\prime$ is never zero so the composition $f \circ g \circ f : H \rightarrow D$ is a conformal mapping.
+	
 	\end{proof}
 
 
