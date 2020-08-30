@@ -116,9 +116,52 @@ There are a few different ways to compute such an integral.
 	
 \end{enumerate}
 
-\section{Compute the genus of a curve}
+\section{Rouche's theorem}
+
+Rouche's theorem is a counting result that under the right conditions two functions have the same number of zeros.
+Lets state the theorem fully:
+suppose that $\Omega$ is an open subset of $\mathbb{C}$ which contains the closed disk $D$, and that $f,g$ 
+are holomorphic on $\Omega$.
+Then if $|f| > |g|$ on $\partial D$ (the boundary of $D$, aka the circle), then $f$ and $f+g$ have the same number of zeros 
+in the interior of $C$.
+
+Some ways that this theorem has come up on past exams:
+\begin{itemize}
+	\item Show that given $f\neq 0$ on $\partial D$ then $f$ and $f+\epsilon g$ have the same number of zeros for some $\epsilon$. 
+	If you get this, compute the $\epsilon$ using the fact that $\partial D$ is compact so it attains a max/min, then you can express 
+	$\epsilon$ directly in terms of the max and min. (See Fall 2019 exam).
+\end{itemize}
+
+\section{Elliptic curves}
+
+There are two common questions which are essentially the same, but are phrased differently.
+The two questions are 
+\begin{itemize}
+	\item Compute the genus of a curve $z^n = p(w)$ where $p$ is a polynomial of degree $w$.
+	\item Show that a curve $z^n = p(w)$ is/is not an elliptic curve.
+\end{itemize}
+The second question is a special case of the first, because an elliptic curve is a plane curve with genus $1$.
+
+The genus-degree formula\footnote{See Griffiths and Harris Ch. 2.1 or Hartshorne Ch 4.} tells us that the genus of a smooth irreducible plane curve given by a homogeneous polynomial is
+\[ \frac{(d-1)(d-2)}{2}\]
+where $d$ is the degree of the polynomial. 
+
+So we need to check that it is (a) smooth, (b) irreducible.
+First, we homogenize the polynomial with a variable $u$ which we will eventually specialize to $1$. Then we can write the curve as the zero locus of
+$u^{d-n} z^n - p^\prime(w,u)$, where $p^\prime$ is homogenous of degree $d$.
+Compute the partial derivative of the expression with respect to $z,w,u$, and if they are \emph{ever} simultaneously zero when $u=1$, then the curve is \emph{not smooth}.
+Otherwise, it is smooth.
+Then check that it is irreducible as a polynomial, and you can apply the formula above.
+
+
+The ``right" way to do this in general can be found in 
+\href{http://www.ryanmatzke.com/pdfs/Complex\%20Analysis\%20Prelim\%20Examples.pdf}{Ryan Matske's notes, starting on page 17, } or \href{http://www-users.math.umn.edu/~garrett/m/complex/notes_2014-15/ERNPRHH.pdf}{Paul Garrett's notes}, but the ``right" way is too much work for the particularly nice 
+cases which typically show up on the prelims.
+
+
+There is an especially nice case for \emph{hyper elliptic curves}
 Let $\pi$ be a hyper elliptic curve with $y^2 = f(x)$ where $f$ is a square-free polynomial in $x$. Then the Riemann-Hurwitz formula\footnote{For further detail, see \href{PG's notes}{http://www-users.math.umn.edu/~garrett/m/complex/notes\_2014-15/ERNPRHH.pdf}} tells us that the genus $g_Y$ is 
-\[g_Y  = \begin{cases} \frac{\deg(f)-1}{2} & \text{if } \deg(f) \text{ odd} \\ \frac{\deg{f}-2}{2} & \text{if } \deg(f) \text{ even}  \end{cases}. \]
+\[g_Y  = \begin{cases} \frac{2\deg(f)-1}{2} & \text{if } \deg(f) \text{ odd} \\ \frac{2\deg{f}-2}{2} & \text{if } \deg(f) \text{ even}  \end{cases}. \]
 To solve these problems rewrite the given function as $y^2 = $(a polynomial) and then use the formula.
 
 \end{document}
