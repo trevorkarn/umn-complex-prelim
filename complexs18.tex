@@ -2,8 +2,11 @@
 
 \usepackage{amsthm}
 \usepackage{amsmath}
+\usepackage{amsfonts}
 \usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
+
+\DeclareMathOperator{\res}{res}
 
 \title{\href{https://math.umn.edu/sites/math.umn.edu/files/exams/complexs18.pdf}{Spring 2018 Complex Analysis Preliminary Exam}}
 \author{University of Minnesota}
@@ -58,6 +61,95 @@ Where possible, computations have been also done using SageMath code available o
 	
 Note that there is also a Laurent series which converges for the annulus $0 < |z| < 1$. This can be found by using the geometric series expansion \[\frac{1}{z-1} = \frac{-1}{1-z} = - \sum_{n=0}^\infty z^n\] which of course converges for $|z|< 1$, and using the same expansion of $\frac{1}{z-2}$ as above. The expansion which converges on the punctured unit disk is the one provided by SageMath. For another example of this, see \href{https://math.stackexchange.com/questions/2553132/laurent-series-for-different-domains}{this math StackExchange post}.
 
+\item Let $f$ be an entire function so that $\Re f(z)$ is \emph{bounded}. Show $f$ is constant.
+
+\begin{proof}
+Let $f$ be entire so it admits a power series representation 
+\[ f(z) = \sum_{n \geq 0 } \alpha_n z^n.\]
+Let $\gamma_R$ be a circle of radius $R$ centered at the origin.
+The Cauchy inequality tells us that
+\begin{align*}
+|\alpha_n| &= \frac{|f^{(n)}(0)|}{n!}\\
+&\leq \frac{\max_{z \in \gamma_R}| f|}{R^n}.
+\end{align*} 
+Now note that for any $z$ we have $|f(z)| \leq \Re f(z) + \Im f(z)$ (the triangle inequality).
+This implies that, letting $B$ be an explicit bound so that $|\Re f(z)| < B$ for all $z$.
+\begin{align*}
+\frac{\max_{z \in \gamma_R} |f|}{R^n} &\leq \frac{\max_{z \in \gamma_R} (\Re f(z) + \Im f(z))}{R^n}\\
+& \leq \frac{ \max_{z \in \gamma_R} (B + \Im f(z))}{R^n}\\
+& = \frac{B + \max_{z \in \gamma_R} \Im f(z)}{R^n}\\
+& = \frac{B + R}{R^n}.\\
+\end{align*}
+Note that this holds for any $R$. So for any $n > 1$, we have
+\[ |\alpha_n| \leq \lim_{R \rightarrow \infty} \frac{B + R }{R^n} = 0.\]
+This means that the power series representation for $f$ can be simplified to
+\[ f(z) = \alpha_0 + \alpha_1 z.\]
+But linear functions are unbounded, and so we know $\alpha_1$ must be zero.
+Hence $f(z) = \alpha_0$ is a constant function.
+\end{proof}
+
+\item Evaluate $\displaystyle \int_0^\infty \frac{\cos tx}{1+x^2} dx $ for $t \in \mathbb{R}$.
+
+\begin{proof}
+Let $R > 1$ be a real number and let $\gamma_R$ be the curve in the upper half plane 
+defined by \[[-R,R] \cup \{ z \in \mathbb{C} : |z| = R, \Im( z) > 0\}.\]
+Let $\gamma^\prime_R:=\{ z \in \mathbb{C} : |z| = R, \Im( z) > 0\}$.
+Let \[f(z) := \frac{e^{itz}}{1+z^2}\]
+note that for $z \in \mathbb{R}$, $f$ agrees with the requested integral,
+since Euler's formula tells us that $e^{i t z} = \cos (tz) + i \sin t(z)$ for $z \in \mathbb{R}$.
+
+Now note that $f$ has simple poles at $z = \pm i$. Thus, the residue theorem tells us that
+\[ \int_{\gamma_R} f(z) dz = 2\pi i \res_{i} f\]
+since $- i$ is not inside $\gamma_R$.
+Since the pole at $i$ is simple, we can compute
+\[ \res_i f = \lim_{z \rightarrow i} (z-i) f(z) = \frac{e^{i t i}}{2i} = \frac{e^{-t}}{2i}\]
+so we get that 
+\[ \int_{\gamma_R} f(z) dz = \pi e^{-t}.\]
+Since $\gamma_R$ is the union of $[-R,0) \cup [0,R] \cup \gamma^\prime$, we may split the integral
+\begin{align*}
+\int_{\gamma_R} f(z) dz &= \int_{[-R,0)} f(z) dz + \int_{[0,R]} f(z) dz + \int_{\gamma^\prime_R} f(z)dz.
+\end{align*}
+By the estimation lemma, we know that 
+\[ \left |\int_{\gamma^\prime_R} f(z) dz \right | \leq L \max_{z \in \gamma_R^\prime} |f(z)|\]
+where $L = \pi R$ is the length of $\gamma^\prime_R$.
+We now compute 
+\begin{align*}
+ \max_{z \in \gamma_R^\prime} |f(z)| &=  \max_{z \in \gamma_R^\prime} \frac{|e^{itz}|}{|1+z^2|}\\
+&=  \max_{z \in \gamma_R^\prime} \frac{e^{-t\Im z}}{|1+z^2|}\\
+&=  \max_{z \in \gamma_R^\prime} \frac{e^{-t\Im z}}{|z+i||z-i|}
+\end{align*}
+Now we collect the following inequalities:
+\[ e^{-t \Im z} \leq 1 \forall z \in \gamma_R^\prime\]
+and
+\[ |z +i  | \geq R \; \forall z \in \gamma_R^\prime\]
+which can be seen by considering $|z+i|$ as the distance between $z \in \gamma_R^\prime$
+and $-i$ which is clearly at least $R$ (the distance is minimized when $z = R$).
+Similarly
+\[ |z - i | \geq R \; \forall z \in \gamma_R^\prime\]
+which is the distance between $z$ and $+i$, minimized when $z=iR$.
+Combining these inequalities, we see that 
+\[\max_{z \in \gamma_R^\prime} f(z) \leq \frac{1}{R^2}.\]
+Thus, we can bound the value of the integral on the upper half circle as
+\[ |\int_{\gamma^\prime_R} f(z) |\leq \frac{\pi}{R}.\]
+So as the radius tends to infinity, the integral vanishes.
+
+Now, since along the real axis, $f(z) = \frac{\cos tz}{1+z^2}$ we have that it is an even function so
+\[2 \int_{[0,R]} f(z) dz = \int_{[-R,0)} f(z) dz + \int_{[0,R]} f(z) dz.\]
+Thus, we can rewrite the integral which we had previously broken up as
+\[\pi e^{-t} = \int_{\gamma_R} f(z) dz = 2\int_{[0,R]} f(z) dz + \int_{\gamma^\prime_R} f(z)dz \leq 2\int_{[0,R]} f(z) dz + \frac\pi R.\]
+Taking the limit as $R\rightarrow \infty$, we see that
+\[\pi e^{-t} = 2\int_{[0,\infty]} f(z) dz + 0.\]
+or that
+\[ \frac{\pi e^{-t}}{2} = \int_0^\infty \frac{\cos(tx) }{1+x^2} dx \]
+\end{proof}
+
+%This can be verified in sage:
+%sage: x,t = var('x,t')
+%sage: f = cos(t*x)/(1+x^2)
+%sage: assume(t>0)
+%sage: integrate(f,x,0,oo)
+%1/2*pi*e^(-t)
+
 \setcounter{enumi}{3}
 
 \item Determine the radius of convergence of the power series for $\frac{z}{1-e^z}$ at $z=0$.
@@ -80,6 +172,71 @@ Note that there is also a Laurent series which converges for the annulus $0 < |z
 	
 	Combining (\ref{4.i}) and (\ref{4.ii}) we see that $R = 2\pi$.
 \end{proof}	
+
+\item Show that there is a holomorphic function $f$ on the region $1 < |z| < 2$ such that $f(z)^2 = (z^2-1)(z^2-4)$.
+
+%\begin{proof}
+%There is a holomorphic square root in any simply connected domain not including $0$. 
+%The zeros of the right hand side are $\pm 1$ and $\pm 2$.
+%Thus, the domain $|z| < 2$ does not contain any zeros of $(z^2-4)$, and so there is a 
+%holomorphic square root of $z^2-4$ on $|z|<2$. We now want to construct a holomorphic 
+%square root of $z^2-1$ on $|z|>1$. 
+%Now rewrite 
+%\[ (z^2-1) = \frac{1}{1/(z^2-1)}. \]
+%Note that $\frac{1}{z^2 - 1} = \frac{1}{z^2(1-\frac{1}{z^2})}$.
+%Now $\frac{1}{1-\frac{1}{z^2}} = \sum_{n \geq 0} (\frac{1}{z^2})^n$ is holomorphic on $| \frac{1}{z^2} | < 1$ which is to say on $|z| > 1$. 
+%Moreover $\frac{1}{z^2}$ is holomorphic on $ |z| > 0$, so the product $\frac{1}{1-z^2}$ is holomorphic on the
+%intersection, $ |z|>1$.
+%Composition of holomorphic functions is holomorphic, and so since $\frac{1}{z}$ is holomorphic except at $0$, then 
+%there is a holomorphic expression for $(z^2-1)$ on $|z|>1$.
+%\end{proof}
+
+
+\item Prove that $w^2 = z^4 +1$ defines an elliptic curve.
+
+\begin{proof} It will suffice to show that the same curve in $\mathbb{CP}^1$ has genus one.
+There is a natural inclusion of $ \mathbb{C} \hookrightarrow \mathbb{CP}^1$, given by $z \mapsto \mathbb{C}\begin{pmatrix} z \\ 0 \end{pmatrix}$, and we can consider the point at infinity to be written $\begin{pmatrix}z \\ 0 \end{pmatrix}$. In this manner, we can identify points and write the elements of $\mathbb{CP}^1$ as 
+$\mathbb{C} \cup \{ \infty\}$.
+Now consider the covering of $\mathbb{CP}^1$ given by $(z,w) \mapsto z$ where the pair $(z,w)$ satisfies
+$w^2 - z^4 -1 = 0$. This cover has degree $2$, since the highest exponent of $w$ is $2$.
+There are two distinct square roots of $z^4+1$ except in a neighborhood of roots of $z^4+1$, which are
+$\xi = e^{i \pi /2}, \xi^2,\xi^3,\xi^4$.
+
+
+We now consider $w^2 - z^4-1$ as a polynomial in $(\mathbb{C}[z])[w]$. We now compute the order of vanishing at each 
+coefficient at $\xi,\xi^2,\xi^3,\xi^4$. Since each root of $z^4+1$ has multiplicity one, the order of vanishing of the constant
+coefficient $z^4+1$ is one for all powers of $\xi$. The coefficient of $w$ is $0$ and so its order of vanishing is $\infty$, and it does not depend on $\xi$. Finally, the order of vanishing of the coefficient $1 \in \mathbb{C}[z]$ of $w^2$ is $0$, which does not depend on $\xi$.
+
+Thus, we obtain a newton polytope with vertices at $(0,0),(1,\infty), (2,1)$ for each. 
+To check if there is a ramification at $\infty$, we invert coordinates, so
+\begin{align*}
+\frac{1}{w^2} &= \frac{1}{z^4} + 1 \\
+z^4 &= w^2 + w^2z^4\\
+\frac{z^4}{1+z^4} &= w^2.
+\end{align*}
+There are two distinct solutions, namely $\frac{\pm z^4}{1+z^4}$ so there is not a ramification at $\infty$.
+
+Away from $\infty$ we have a slope of $\frac{1}{2}$ which tells us the ramification index 
+$e_{\xi} = e_{\xi^2} = e_{\xi^3} = e_{\xi^4} = 2$.
+
+Then the Riemann-Hurwitz formula relates the genus $g_Y$ of $Y:= \{(z,w) : w^2 = z^4+1 \}$ to the genus $g_{\mathbb{CP}^1}$ of $\mathbb{CP}^1$ (which is what is being covered) by
+\[ 2g_Y -2 = n ( 2 g_{\mathbb{CP}^1} - 2) + \sum_{z \in \{\xi, \xi^2, \xi^3, \xi^4\}} (e_z - 1)\]
+where $n = 2$ is the degree of the covering map and $e_z = 2$ is the index of ramification.
+Thus,
+\begin{align*}
+2 g_Y - 2 &= 2 (2 \cdot 0 - 2) + 4 (2 -1) \\
+&= -4 + 4 = 0\\
+2 g_Y &= 2\\
+\Rightarrow g_Y &= 1.
+\end{align*}
+Thus, the locus $Y$ is an elliptic curve.
+\end{proof}
+
+\item Try to define $w$ \emph{locally} as a holomorphic function of $z$, defined by the relation $w^5 - 5zw +1 = 0$. What are the branch points?
+
+%Thoughts:
+%	think of it in C[z][w] 
+%     order of vanishing of coordinates is 0, oo, oo, oo, 1 @ 0, 0
 
 \end{enumerate}
 
