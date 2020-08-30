@@ -6,6 +6,8 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
 
+\DeclareMathOperator{\res}{res}
+
 \title{\href{https://math.umn.edu/sites/math.umn.edu/files/exams/complexf18.pdf}{Fall 2018 Complex Analysis Preliminary Exam}}
 \author{University of Minnesota}
 \date{}
@@ -25,9 +27,9 @@ Where possible, computations have been also done using SageMath code available o
 		
 		Thus, for $k \in \mathbb{Z}$, $i^i$ takes on the values of
 		\begin{align*}
-			e^{i \log i } = e^{ i(  \pi i/2 + 2\pi i k)} = e^{- \pi/2 + 2\pi k} 
+			e^{i \log i } = e^{ i(  \pi i/2 + 2\pi i k)} = e^{- \pi/2 + 2\pi k}
 		\end{align*}
-		  on the positive real axis.
+		which each lie on the real axis! \emph{Incroyable!}
 		
 	\end{proof}	
 	\setcounter{enumi}{1}
@@ -54,15 +56,61 @@ Where possible, computations have been also done using SageMath code available o
 	\item Let $f$ be an entire function so that $\Re f(z)$ is \textit{nonnegative} for all $z \in \mathbb{C}$. Show that $f$ is constant.
 	
 	\begin{proof}
-		Denote $z = x+iy$ where $x,y$ are real, and let
-		$f(z) = f(x,y) = u(x,y) + i v(x,y).$
-		
-		We know that if $z = x+iy$ and $f(z) = f(x,y) = u(x,y) + i v(x,y)$, where $u,v$ are real-valued functions, then in order for $f$ to be entire it
-		must satisfy the Cauchy-Riemann equations
-		\[ \frac{\partial u}{\partial x} = \frac{\partial v}{\partial y} \; \; \; \; \frac{\partial u}{\partial y} = - \frac{\partial v}{\partial x} \]
+		Picard's little theorem states that if $f: \mathbb{C}\rightarrow \mathbb{C}$ is entire and nonconstant
+		then the image of $f$ misses at most one point. If $\Re f(z)$ is nonnegative for all $z$, then
+		$z = -1, -2$ are two points which are not contained in the image, and so $f$ must be constant.
 	\end{proof}
 	
-	\setcounter{enumi}{5}
+	\item Evaluate $\displaystyle \int_0^\infty \frac{x^{1/5}}{1+x^2} dx$
+	
+	\begin{proof}
+		Let $R > 1$, and let $C_R^+$ be the open semicircle of radius $R$ in the upper half plane.
+		Let $\gamma_R = C_R^+ \cup [-R,R]$. Let the orientation of $\gamma_R$ be counter clockwise.
+		
+		Let $f(z) = \frac{z^{1/5}}{1+z^2}$. We will compute the integral 
+		\[ \int_{\gamma_R} \frac{z^{1/5}}{1+z^2} dx.\]
+		First, note that $f$ has simple poles at $z = \pm i$.
+		The only pole contained inside of the closed curve $\gamma_R$ is the pole at $+i$ (since we
+		took $R>1$).
+		Then by the residue theorem, we know that
+		\[ \int_{\gamma_R} f(z) dz = 2\pi i \res_i f.\]
+		Since there is a simple pole at $i$, we may compute 
+		$\res_i f = \lim_{z \rightarrow i} (z-i) \frac{z^{1/5}}{(z+i)(z-i)}= \frac{i^{1/5}}{2i}.$
+		Substituting this into the equation above, we obtain
+		\[ \int_{\gamma_R} f(z) dz = \pi i^{1/5},\]
+		independent of $R$.
+		
+		Now consider splitting $\gamma_R$ up into the integral along $C_R^+$ and $[-R,R]$.
+		Then \[\int_{\gamma_R} f(z) dz = \int_{C_R^+} f(z) dz + \int_{[-R,R]} f(z) dz\]
+		Since the length of $C_R^+$ is $\pi R$, 
+		we can bound the magnitude of $\int_{C_R^+} f(z) dz$ using the estimation lemma
+		(also called the $ML$ lemma), by
+		\begin{align*}
+		 \left | \int_{C_R^+} f(z) dz \right | &\leq \pi R \max_{z \in C_R^+} \left | \frac{z^{1/5}}{1+z^2} \right |\\
+		 &= \pi R \max_{z \in C_R^+}  \frac{R^{1/5}}{|1+z^2|} 
+		 \end{align*}
+		 and viewing $|\cdot |$ as distance, we obtain $|1 + z^2| > |z^2|$ on the upper half plane.
+		 This allows us to bound 
+		 \[ \left | \int_{C_R^+} f(z) dz \right | < \pi R \max_{z \in C_R^+}  \frac{R^{1/5}}{|z^2|} = \pi R \max_{z \in C_R^+}  \frac{R^{1/5}}{R^2}=\frac{\pi}{R^{4/5}}. \]
+		 Taking the limit $R \rightarrow \infty$, we thus see that the portion of the integral along $C_R^+$ vanishes.
+		 
+		 We now turn our attention to the portion of the integral along the real axis.
+		 \begin{align*}
+		 \int_{[-R,R]} f(z) dz &= \int_{-R}^0 f(z) dz + \int_0^R f(z) dz\\
+		 &= \int_{R}^0 f(-z) dz + \int_0^R f(z) dz\\
+		 &= \int_R^0 \frac{(-z)^{1/5}}{1+(-z)^2} dz + \int_0^R f(z) dz \\
+		 &= -\int_0^R \frac{(-z)^{1/5}}{1+z^2} dz + \int_0^R f(z) dz\\
+		 &= - (-1)^{1/5} \int_0^R f(z) + \int_0^R f(z)dz\\
+		 &=\left ( - (-1)^{1/5} + 1 \right ) \int_0^R f(z) dz \\
+		 &=\left ( - e^{i\pi/5} + 1 \right ) \int_0^R f(z) dz 
+		 %
+		 \end{align*}
+		 so taking $R \rightarrow \infty$ we see that 
+		 \[ \pi i^{1/5} = \left (  1- e^{i\pi/5}  \right ) \int_0^\infty f(z) dz\]
+		 or 
+		 \[ \frac{\pi e^{\pi i/10}}{1- e^{i\pi/5} } = \int_0^\infty f(z) dz\]
+	\end{proof}
+	
 	\item Determine the radius of convergence of the power series for $\log z$ at $z_0 = -4 + 3i$.
 	
 	\begin{proof}
@@ -75,6 +123,30 @@ Where possible, computations have been also done using SageMath code available o
 		$\mathbb{C}$ which does not contain $0$ then there is a branch of the logarithm which is holomorphic on $\Omega$. Observe that the open disk $D_{5}(-4+3i) := \{ z \in \mathbb{C} : |-4+3i - z | < 5\}$ is simply connected and does not contain zero. Thus, there is a branch of the logarithm (call it $\log_{D_5}$) which is holomorphic on $D_5$. Since we have constructed a disk of radius 5 on which there is a holomorphic logarithm, we see that 
 		\[ R \geq 5.\]
 		Since we have bounded $R$ both above and below by 5, we see that $R=5$.		
+	\end{proof}
+	
+	\item By a suitable change of coordinates, write $w^2 = z^4+1$ in the Weierstrass form $y^2=x^3+ax+b$.
+	
+%http://www-users.math.umn.edu/~garrett/m/complex/notes_2014-15/10_elliptic.pdf
+	Hartshorne
+	
+	\item Try to define $w$ locally as a holomorphic function of $z$ by the relation $w^5 - 5zw + 1 = 0$. For 
+	which $z$ does this fail to some extent.\footnote{Follow the procedure in section three of P.G.'s notes: \href{http://www-users.math.umn.edu/~garrett/m/complex/notes\_2014-15/ERNPRHH.pdf}{http://www-users.math.umn.edu/~garrett/m/complex/notes\_2014-15/ERNPRHH.pdf}, Example 3.0.1.}
+	
+	\begin{proof}
+		The holomorphic inverse theorem states that if $F(z,w)$ is a polynomial and $F(z_0,w_0)=0$ and
+		$\frac{\partial F}{\partial w} (z_0, w_0) \neq 0$, then there is a holomorphic expression for $w$ in 
+		terms of $z$ in a sufficiently small radius of $z_0$.
+		Thus, we want to find all the points where
+		$F(z,w)$ and $\frac{\partial F}{\partial w}(z,w)$ are simultaneously $0$.
+		
+		We now consider $F(z,w) =: P(w), P^\prime(w) \in \mathbb{C}(z)[w]$. We want to find nontrivial
+		points where they are simultaneously $0$.
+		They are certainly simultaneously $0$ when their GCD is $0$, so we compute it.
+		First,
+		\[ P(w) = \frac{w}{5} P^\prime(w) - 4zw +1 \]
+		and then
+		\[ P^\prime(w) = q(w) (-4zw + 1) - \]
 	\end{proof}
 	
 \end{enumerate}
