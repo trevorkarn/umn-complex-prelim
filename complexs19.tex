@@ -170,6 +170,8 @@
 	
 	\setcounter{enumi}{4}
 	
+	\newpage
+	
 	\item Determine the radius of convergence for the power series of $\sqrt{z}$ at $z_0 = -3 + 4i$.
 	
 	\begin{proof}
@@ -207,7 +209,25 @@
 	\end{proof}
 	
 	\item Prove that $z^3+w^3 = 1$ defines an elliptic curve.
-	\begin{proof}
+	
+	We provide two proofs, one using the \emph{genus-degree formula}, a corollary to the \emph{Riemann-Hurwitz theorerm on ramified coverings},
+	and the other using the Riemann-Hurwitz theorem itself.
+	
+	\begin{proof}[Proof. (Genus-degree formula)]
+	
+	The genus-degree formula states that the genus of a smooth plane curve is given by $\frac{(d-1)(d-2)}{2}$, 
+	where $d$ is the degree of the polynomial defining the curve.
+	
+	We can homogenize this curve as the locus of points $z^3+w^3-u^3 = 0$, and we will specialize $ u \rightarrow 1$.
+	To check that this is smooth, we compute all partial derivatives, 
+	$\frac{\partial}{\partial z} = 3z^2$, $\frac{\partial}{\partial w} = 3w^2$ and $\frac{\partial}{\partial u} = -3u^2$.
+	The curve is not smooth when all three partial derivatives are simultaneously $0$, which occurs at the point $[0:0:0]$.
+	But such a point is not on our curve, since we want $u=1$ always. Thus, we can conclude we are dealing with a smooth 
+	curve of degree $3$, and so the genus-degree formula tells us that 
+	\[ g = \frac{(3-1)(3-2)}{2} = 1.\]
+	Since the curve has genus $1$, it is an elliptic curve.
+	\end{proof}
+	\begin{proof}[Proof. (Riemann-Hurwitz theorem)]
 	We will show the equivalent statement that the same curve in $\mathbb{CP}^1\times \mathbb{CP}^1$
 	has genus $1$.
 	We will thus abuse notation and identify points $z \in C$ with their line through the origin,
@@ -260,7 +280,8 @@
 		So since $e^z$ is entire, the radius of convergence is the same radius of convergence of $\log \frac{\sin z}{z}$.
 		There is a branch of $\log$ which is holomorphic on any simply-connected domain not containing $0$, 
 		so consider the domain $\Omega = \{ z \in \mathbb{C} : |z| < \pi\}$. 
-		Although it is morally reprehensible, the
+		Although it is morally reprehensible,\footnote{Perhaps ``morally reprehensible" is a bit extreme in this case, since it is
+		easy to compute an analytic continuation of $\sin(z)/z$ by squinting at the power series.} the
 		radius of convergence does not include the point at which the series is centered, and so the fact that
 		$\sin{z} \neq 0$ for all $z \in \Omega$ means that the logarithm is well defined on $\Omega$, and thus
 		radius of convergence (call it $R$) is at least $\pi$.

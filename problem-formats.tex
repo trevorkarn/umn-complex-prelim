@@ -8,13 +8,17 @@
 \usepackage{sectsty}
 
 \DeclareMathOperator{\res}{res}
+\DeclareMathOperator{\im}{im}
 
 \sectionfont{\large}
 \title{Complex Analysis Preliminary Written Exam Prep}
 \begin{document}
-\date{}
+\date{\today}
 \maketitle
-The goal of this document is to give a general outline of how to solve problems for the Complex Analysis prelim. See the study log for specific old prelim questions relevant to each section.
+The goal of this document is to give a general outline of how to solve problems for the Complex Analysis prelim. I hope that this document contains all of the 
+theorems/definitions required to solve a prelim, so it is just up to you to practice solving the problems on old exams using these theorems/techniques.
+If I missed anything, please email karnx018[at]umn.edu, or check out the GitHub repository and make a pull request. See the study log for specific old 
+prelim questions relevant to each section.
 
 \section{Laurent Series}
 
@@ -74,7 +78,7 @@ There are some useful facts about the Cayley map:
 	\item For our $f^{-1}$, the upper-half disk will be taken to the second quadrant. If you forget, just plug in $x+iy$ and compute $f^{-1}(x+iy)$, and conditions on $x,y$ will tell you what goes where.
 \end{enumerate}
 
-Finally, remember that multiplication by a constant is a conformal mapping. Thus, since multiplication by $i$ corresponds to a 90-degree rotation of the complex plane, it is useful to remember you can shift things using that mulitplication. Finally, the map $z \mapsto z^2$ is a conformal mapping (as long as $0$ isn't in the domain of the function) which doubles angles so, for example, the upper half-unit-disk gets mapped to the slit unit-disk under this map.
+Finally, remember that multiplication by a constant is a conformal mapping. Thus, since multiplication by $i$ corresponds to a 90-degree rotation of the complex plane, it is useful to remember you can shift things using that multiplication. Finally, the map $z \mapsto z^2$ is a conformal mapping (as long as $0$ isn't in the domain of the function) which doubles angles so, for example, the upper half-unit-disk gets mapped to the slit unit-disk under this map.
 
 \section{Show a function is constant}
 
@@ -87,7 +91,18 @@ Thus, if you can show some of these are $0$, you know the other one is zero.
 
 \item \textbf{Liouville's theorem} states that every bounded entire function is constant.
 \item The \textbf{open mapping theorem} states that non-constant holomorphic functions are open maps (i.e. they send open sets to open sets). If you can show that the image under a holomorphic function of an open set is closed, then the function must be constant.
+
+\item \textbf{Cauchy's inequality} states that if $C$ is a circular curve of radius $R$ centered at $z_0$ and $f$ is holomorphic on a region enclosing $C$, then
+\[ | f^{(n)}(z_0) | \leq n! \frac{\max_{z \in C} f(z)}{R^n}.\]
+The way this will typically show up is given an entire function so that you can take $R \rightarrow \infty$ without changing the value, and then (roughly speaking) that sends all the non-constant coefficients to $0$. The connection is that the way to extract coefficients is by taking derivatives and evaluating at $0$. This also will usually end up cancelling the factor of $n!$.
+
+\item \textbf{Picard's little theorem} states that an entire function $f$ which is non-constant misses at most one value in the complex plane. So if you can
+produce two values which are not in the image of $f$, then $f$ must be constant.
+
 \end{enumerate}
+
+If you are given some bound on $f$ and show that $f$ is constant, you might be able to be more specific about the values of $f$, namely that 
+they lie within a disk of some radius from the origin.
 
 
 \section{Compute an integral}
@@ -116,6 +131,9 @@ There are a few different ways to compute such an integral.
 	
 \end{enumerate}
 
+One thing to be careful of is that if you have a fractional power then you might not be able to define it at $0$, so you need to have another semi-circle of 
+radius epsilon, and then you would take $\epsilon \rightarrow 0$. Probably use the estimation lemma again, since the radius is $\epsilon \pi$.
+
 \section{Rouche's theorem}
 
 Rouche's theorem is a counting result that under the right conditions two functions have the same number of zeros.
@@ -130,7 +148,25 @@ Some ways that this theorem has come up on past exams:
 	\item Show that given $f\neq 0$ on $\partial D$ then $f$ and $f+\epsilon g$ have the same number of zeros for some $\epsilon$. 
 	If you get this, compute the $\epsilon$ using the fact that $\partial D$ is compact so it attains a max/min, then you can express 
 	$\epsilon$ directly in terms of the max and min. (See Fall 2019 exam).
+	
+	\item Show that some polynomial has only a certain number of zeros in a given disk or annulus.\footnote{See 
+	\href{https://math.stackexchange.com/questions/1272007/find-the-number-of-roots-of-a-polynomial-using-rouches-theorem}{this StackExchange post} 
+	for an annulus. It includes in the solution counting the number of zeros in a disk.}
+	
 \end{itemize}
+
+\section{Holomorphic inverse-function theorem}
+
+One example that has not shown up in a few years (as of 2020) but could is the question:
+Show that some function $f(x)^n = g(x)$ is defined except at a few points. The \textbf{holomorphic inverse function theorem}
+states that: if $F(x,y)$ is a polynomial in $x,y$ at $x_0, y_0$ satisfying $F(x_0, y_0) = 0$ and $\frac{\partial F}{\partial y}(x_0,y_0) \neq 0$,
+then there is a holomorphic function $y = f(x)$ near $x_0$ such that $f(x_0) = y_0$ and $F(x, f(x)) = 0$ for $x$ near $x_0$.
+So to solve this problem, just check that the partial derivative is $0$ at some points, and those are the points where you \emph{\underline{cannot}}
+define a holomorphic function in the manner given.
+
+Don't get this one confused with $f(x)^n= g(x)$ where $g(z)$ is not a polynomial. Then you need to appeal to the theorem that 
+$n$-th roots are well defined in any region not containing $0$, and so you find the points where $g(z)$ is $0$, and those are the places
+where it breaks.
 
 \section{Elliptic curves}
 
@@ -164,5 +200,32 @@ Let $\pi$ be a hyper elliptic curve with $y^2 = f(x)$ where $f$ is a square-free
 \[g_Y  = \begin{cases} \frac{\deg(f)-1}{2} & \text{if } \deg(f) \text{ odd} \\ \frac{\deg{f}-2}{2} & \text{if } \deg(f) \text{ even}  \end{cases}. \]
 To solve these problems rewrite the given function as $y^2 = $(a polynomial) and then use the formula.
 
+Another question which has come up recently is to write it in Weierstrass form.
+
+
+\section{Miscellany}
+
+Just some other things that could be helpful at some point:
+\begin{itemize}
+	\item \textbf{Cauchy integral formula:} if $C$ is a circle containing $a$ then 
+	\[ f^{(n)}(a) = \frac{n!}{2\pi i} \int \frac{f(z)}{(z-a)^{n+1}} dz.\]
+	The Cauchy inequality is a direct consequence of this. The inequality has shown up on the prelims, but the integral formula itself has not
+	since Paul Garrett started writing the exams.
+	 
+	\item The \textbf{Argument principle} states that if $\gamma$ is a curve, and $N$ is the number of zeros of a function $f$ inside of $\gamma$
+	and $M$ is the number of poles of $f$ inside $\gamma$, then the integral
+	
+	\[ \int_{\gamma} \frac{f^\prime(z)}{f(z)} dz = 2\pi i (N-M).\]
+	
+	You can remember this because the poles are coefficients of negative-degree terms in the Laurent series expansion of $f$,
+	and so the number of them contributes negatively to the integral. (This is not a mathematical explanation, just a mnemonic.)
+	
+	\item The \textbf{Reflection principle} states that if $\Omega$ is a region symmetric about the $\mathbb{R}$-axis, and $f$ is
+	a holomorphic function on $ \Omega \cap \{ z : \im z > 0 \}$ which can be continuously extended to $\Omega  \cap \mathbb{R}$ 
+	in a manner such that the extension is real-valued on $\Omega \cap \mathbb{R}$, then there is a function $F$ holomorphic on
+	$\Omega$ which agrees with $f$ on $\Omega \cap \{ z : \im z > 0\}$. Moreover, we have the expression that
+	\[ F(z) = \overline{f(\overline{z})}\]
+	
+\end{itemize}
 
 \end{document}
