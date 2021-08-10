@@ -1,0 +1,49 @@
+\documentclass{article}
+
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+
+\title{\href{https://math.umn.edu/sites/math.umn.edu/files/exams/complexs15.pdf}{Spring 2015 Complex Analysis Preliminary Exam}}
+\author{University of Minnesota}
+\date{}
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+	
+	\item Describe all values of $(-1)^i$ where $i = \sqrt{-1}$.
+	
+	\begin{proof}
+		In general, we use a choice of logarithm to describe exponentiation, i.e. $z^\alpha = e^{\alpha \log z}$.
+		Additionally, on the principle branch, if we have $z = re^{i \theta}$, then $\log z = \log(r) + i\theta$.
+		So we compute
+		\begin{align*}
+			(-1)^i &= e^{i \log (-1)} \\
+			&= e^{i \log(e^{i (\pi + 2\pi k)})}\\
+			&= e^{i (\log(1) + i (\pi + 2\pi k))}\\
+			&= e^{-(\pi+2\pi k)}\\
+			&= -1
+		\end{align*}
+	\end{proof}
+	
+	\item Write three terms of the Laurent expansion of $f(x) = \frac{1}{z(z-1)(z-2)}$ in the annulus $1 < |z| < 2$.
+	
+	\begin{proof}
+	\begin{align*}
+		\frac{1}{z(z-1)(z-2)}&= \frac{1}{z} \cdot \frac{-1}{2(1-\frac{z}{2})} \cdot \frac{1}{z(1-\frac{1}{z})}\\
+		&= \frac{-1}{2z^2} \cdot \left ( \sum_{n \geq 0} (z/2)^n \right ) \cdot \left ( \sum_{n\geq 0} (1/z)^n \right )\\
+		&= \frac{-1}{2z^2} \left ( \sum_{n = - \infty}^\infty  \sum_{i - j = n} (z/2)^i(1/z)^j \right ) \\
+		&= \frac{-1}{2z^2} \left ( \sum_{n = - \infty}^\infty  \sum_{i - j = n} (1/2)^i z^{i-j} \right ) \\
+		&= \frac{-1}{2z^2} \left ( \sum_{n = - \infty}^\infty  z^n \sum_{i - j = n} (1/2)^i\right ) \\
+		&= \frac{-1}{2z^2} \left ( \cdots + \sum_{i-j = 0} \frac{1}{2} + z \sum_{i-j = 1} \frac{1}{2}+ z^2\sum_{i-j = 2} \frac{1}{2}+\cdots  \right )\\
+		&= \frac{-1}{2z^2} \left ( \cdots + \frac{1}{1-1/2} + z \frac{1}{1-1/2} + z^2 \frac{1}{1-1/2}+\cdots  \right )\\
+		&= \frac{-1}{2z^2} \left ( \cdots + 2 + 2z + 2z^2 + \cdots  \right )\\
+		&= \frac{-1}{z^2} \left ( \cdots + 1 + z + z^2 + \cdots  \right )\\
+		&= \left ( \cdots - z^{-2} - z^{-1} - 1 + \cdots  \right )\\
+	\end{align*}
+	\end{proof}
+	
+\end{enumerate}
+\end{document}
